@@ -1,0 +1,15 @@
+{
+  "name": "BeeLine",
+  "short_name": "BeeLine",
+  "description": "Getting around IU Bloomington on foot, with campus buses when they beat walking.",
+  "id": "./",
+  "start_url": "./",
+  "scope": "./",
+  "display": "standalone",
+  "background_color": "#FBF8FF",
+  "theme_color": "#FBF8FF",
+  "icons": [
+    { "src": "pwa/icon-192.png", "sizes": "192x192", "type": "image/png", "purpose": "any" },
+    { "src": "pwa/icon-512.png", "sizes": "512x512", "type": "image/png", "purpose": "any" }
+  ]
+}
