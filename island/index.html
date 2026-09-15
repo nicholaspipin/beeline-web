@@ -35,53 +35,43 @@ h1{ margin:0; font-size:clamp(28px,4vw,40px); line-height:1.1; letter-spacing:-.
 .cell{ display:flex; justify-content:center; }
 .cell.left{ justify-content:flex-start; }
 .mlabel{ display:none; font-family:var(--mono); font-size:10px; letter-spacing:.1em; text-transform:uppercase; color:var(--ink-soft); margin-bottom:6px; }
+.wrow{ display:flex; gap:16px; align-items:flex-start; flex-wrap:wrap; padding:0 0 22px 176px; border-bottom:1px solid var(--rule); }
+.wrow .wcell{ display:grid; gap:6px; }
+.wrow .wlabel{ font-family:var(--mono); font-size:10px; letter-spacing:.1em; text-transform:uppercase; color:var(--ink-soft); }
 
 /* ---- the Island, at point size ---- */
-.isl{ background:var(--isl); color:var(--pw); box-shadow:0 0 0 1px var(--isl-edge); font-family:var(--ui); }
-.num{ font-family:var(--round); font-variant-numeric:tabular-nums; font-weight:700; }
-.exp{ width:371px; border-radius:44px; padding:12px 18px 16px; display:grid; grid-template-columns:40px 1fr auto; grid-template-areas:"lead cam trail" "lead center trail" "foot foot foot"; column-gap:10px; row-gap:6px; }
-.exp .lead{ grid-area:lead; display:flex; flex-direction:column; gap:6px; align-items:flex-start; padding-top:2px; }
+.isl{ background:var(--isl); color:var(--pw); box-shadow:0 0 0 1px var(--isl-edge); font-family:var(--ui); line-height:1.15; }
+.exp{ width:371px; border-radius:44px; padding:12px 18px 16px; display:grid; grid-template-columns:auto 1fr auto; grid-template-areas:"lead cam trail" "lead center trail" "foot foot foot"; column-gap:10px; row-gap:6px; }
+.exp .lead{ grid-area:lead; display:flex; align-items:flex-start; padding-top:2px; }
 .exp .camrow{ grid-area:cam; height:28px; display:flex; justify-content:center; align-items:center; }
 .exp .camrow i{ width:92px; height:26px; border-radius:13px; background:#111; box-shadow:inset 0 0 0 1px #1c1c1c; }
 .exp .center{ grid-area:center; min-width:0; }
-.exp .glyphbox{ width:29px; height:29px; display:flex; align-items:center; justify-content:center; }
-.exp .title{ font-size:18px; font-weight:600; white-space:nowrap; overflow:hidden; text-overflow:ellipsis; }
-.exp .sub{ font-size:15px; color:var(--p70); white-space:nowrap; overflow:hidden; text-overflow:ellipsis; margin-top:2px; }
-.exp .trail{ grid-area:trail; text-align:right; align-self:start; white-space:nowrap; display:flex; flex-direction:column; align-items:flex-end; gap:4px; }
-.exp .trail .big{ font-size:30px; line-height:1.05; }
-.exp .trail .unit{ font-size:15px; color:var(--p70); font-family:var(--ui); font-weight:500; }
-.exp .foot{ grid-area:foot; display:grid; gap:8px; margin-top:4px; padding:0 2px; }
-.exp .board{ display:flex; align-items:center; gap:8px; font-size:13px; white-space:nowrap; overflow:hidden; }
-.exp .board > span:last-child{ flex:none; }
-.bar{ height:6px; border-radius:3px; background:rgba(251,248,255,.18); overflow:hidden; }
-.bar i{ display:block; height:100%; border-radius:3px; }
-.footline{ display:flex; gap:8px; align-items:center; min-height:22px; font-size:14px; white-space:nowrap; overflow:hidden; }
-
-.lock{ width:360px; border-radius:22px; padding:14px 16px; display:grid; gap:10px; }
-.lock .row{ display:flex; align-items:center; gap:10px; padding:0; border:0; }
-.lock .txt{ min-width:0; flex:1; }
-.lock .t{ font-size:17px; font-weight:600; white-space:nowrap; overflow:hidden; text-overflow:ellipsis; }
-.lock .s{ font-size:14px; color:var(--p70); white-space:nowrap; overflow:hidden; text-overflow:ellipsis; }
-.lock .val{ display:flex; flex-direction:column; align-items:flex-end; gap:3px; }
-.lock .val .num{ font-size:24px; line-height:1.05; }
-.lock .hr{ height:1px; background:rgba(251,248,255,.22); }
-.lock .board{ display:flex; align-items:center; gap:8px; font-size:14px; color:var(--p70); white-space:nowrap; overflow:hidden; }
-.lock .board .dots{ display:flex; gap:4px; margin-left:auto; }
-.lock .board .dots i{ width:4px; height:4px; border-radius:2px; background:rgba(251,248,255,.35); }
-.lock .board .dots i.on{ background:var(--pw); }
-.tile{ display:inline-flex; align-items:center; justify-content:center; font-weight:700; border-radius:28%; line-height:1; }
+.exp .trail{ grid-area:trail; align-self:start; }
+.exp .foot{ grid-area:foot; margin-top:4px; }
+.lock{ width:360px; border-radius:22px; }
 .cmp{ height:37px; border-radius:19px; display:flex; align-items:center; justify-content:space-between; padding:0 12px 0 10px; width:250px; }
 .cmp .cam{ width:96px; }
-.cmp .l,.cmp .r{ display:flex; align-items:center; gap:5px; white-space:nowrap; }
-.cmp .r{ font-size:15px; }
-.cmp .r .unit{ font-size:12px; color:var(--p70); font-family:var(--ui); font-weight:500; }
-.min{ width:37px; height:37px; border-radius:19px; display:flex; align-items:center; justify-content:center; font-size:13px; white-space:nowrap; overflow:hidden; letter-spacing:-.02em; }
+.min{ width:37px; height:37px; border-radius:19px; display:flex; align-items:center; justify-content:center; overflow:hidden; letter-spacing:-.02em; }
+.wsm{ width:158px; height:158px; border-radius:22px; padding:16px; }
+.wmd{ width:338px; height:158px; border-radius:22px; padding:16px; }
+.wlg{ width:338px; height:354px; border-radius:22px; padding:16px; }
 
-.pill{ display:inline-flex; align-items:center; font-weight:600; border-radius:99px; line-height:1; }
-.route{ font-size:12px; padding:3px 8px; }
-.live{ background:var(--honey); color:var(--ink); font-size:12px; font-weight:700; padding:4px 9px; }
-.out{ box-shadow:inset 0 0 0 1px var(--p70); color:var(--pw); font-size:12px; font-weight:500; padding:4px 9px; }
-.dot{ width:6px; height:6px; border-radius:3px; background:var(--honey); display:inline-block; }
+/* ---- the nodes ---- */
+.n-row{ display:flex; flex-direction:row; min-width:0; }
+.n-col{ display:flex; flex-direction:column; min-width:0; }
+.n-z{ display:grid; }
+.n-z > *{ grid-area:1/1; }
+.n-text{ white-space:nowrap; overflow:hidden; text-overflow:ellipsis; font-variant-numeric:tabular-nums; min-width:0; max-width:100%; }
+.n-text.round{ font-family:var(--round); }
+.n-glyph{ display:inline-flex; align-items:center; justify-content:center; flex:none; }
+.n-tile{ display:inline-flex; align-items:center; justify-content:center; font-weight:700; line-height:1; flex:none; }
+.n-pill{ display:inline-flex; align-items:center; gap:4px; border-radius:99px; line-height:1; white-space:nowrap; flex:none; }
+.n-bar{ height:6px; border-radius:3px; background:rgba(251,248,255,.18); overflow:hidden; width:100%; }
+.n-bar i{ display:block; height:100%; border-radius:3px; }
+.n-dots{ display:flex; align-items:center; height:12px; width:100%; }
+.n-line{ height:1px; width:100%; background:rgba(251,248,255,.22); }
+.n-sp{ flex:1 1 auto; }
+.n-dot{ border-radius:50%; flex:none; }
 svg.g{ display:block; flex:none; }
 
 footer{ margin-top:32px; display:grid; gap:12px; max-width:72ch; font-size:14px; color:var(--ink-soft); }
@@ -94,16 +84,17 @@ footer ul{ margin:0; padding-left:18px; display:grid; gap:6px; }
   .cell{ justify-content:flex-start; flex-direction:column; }
   .mlabel{ display:block; }
   .exp{ width:min(371px, calc(100vw - 48px)); }
+  .wrow{ padding-left:0; }
 }
 @media (prefers-reduced-motion: reduce){ *{ transition:none!important; animation:none!important; } }
 </style>
 
 <div class="wrap">
   <header>
-    <span class="eyebrow">BeeLine · Live Activity · native/live-activity</span>
+    <span class="eyebrow">BeeLine · Live Activity · laLayout.js → native/live-activity</span>
     <h1>The Island, every trip state</h1>
-    <p class="lede">What the Lock Screen card and the Dynamic Island show at each size during a trip, drawn from one set of pieces. Numbers tick as they will on the phone: a countdown only for a bus that is really being tracked, minutes from the distance left for walks, clock times for scheduled buses.</p>
-    <span class="note"><b>Preview, not a phone screenshot.</b> The SwiftUI layout redrawn in HTML at point size; iOS fonts and symbols are approximated.</span>
+    <p class="lede">What the Lock Screen card, the Dynamic Island and the Live Trip widget show at each size during a trip. Since 2026-09-15 the shell composes each surface as nodes (laLayout.js) and the Swift only draws them, so this page renders the very nodes the phone gets: a countdown only for a bus that is really being tracked, minutes from the distance left for walks, clock times for scheduled buses.</p>
+    <span class="note"><b>Preview, not a phone screenshot.</b> The same nodes, drawn in HTML at point size; iOS fonts and SF Symbols are approximated.</span>
   </header>
 
   <div class="cols head"><span>State</span><span>Lock Screen card</span><span>Expanded · long-press</span><span style="text-align:center">Compact</span><span style="text-align:center">Minimal</span></div>
@@ -121,35 +112,22 @@ footer ul{ margin:0; padding-left:18px; display:grid; gap:6px; }
   </footer>
 </div>
 
+<script src="laLayout.js"></script>
 <script>
 (function(){
   const NOW = Date.now(), MIN = 60e3;
+  const esc = s => String(s).replace(/[&<>"]/g, c => ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;' }[c]));
   const hm = d => { const x = new Date(d); let h = x.getHours() % 12 || 12; return h + ':' + String(x.getMinutes()).padStart(2, '0'); };
   const time = d => hm(d) + (new Date(d).getHours() < 12 ? ' AM' : ' PM');
-  const esc = s => String(s).replace(/[&<>"]/g, c => ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;' }[c]));
-  const F = { route: 'F', rc: '#2442DF', rt: '#FFFFFF' };
+  const cd = (at, hours) => { const s = Math.max(0, Math.round((at - Date.now()) / 1000)); const h = Math.floor(s / 3600), m = Math.floor(s % 3600 / 60), ss = String(s % 60).padStart(2, '0'); return h && hours ? h + ':' + String(m).padStart(2, '0') + ':' + ss : (h * 60 + m) + ':' + ss; };
+  const F = { route: 'F', routeColor: '#2442DF', routeText: '#FFFFFF' };
 
-  /* glyphs standing in for SF Symbols */
-  const G = {
-    walk: (s, c) => `<svg class="g" width="${s}" height="${s}" viewBox="0 0 24 24" fill="none" stroke="${c}" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><circle cx="13.5" cy="4" r="2" fill="${c}" stroke="none"/><path d="M10 21l2.5-6.5L15 17v4M12.5 14.5l1-5.5-3.5 1.5-1.5 3.5M13.5 9l2.5 3 3 1"/></svg>`,
-    bus: (s, c) => `<svg class="g" width="${s}" height="${s}" viewBox="0 0 24 24"><rect x="4" y="3" width="16" height="15" rx="3" fill="${c}"/><rect x="6.5" y="6" width="11" height="5" rx="1" fill="#000"/><circle cx="8" cy="14.5" r="1.3" fill="#000"/><circle cx="16" cy="14.5" r="1.3" fill="#000"/><rect x="6" y="18" width="3" height="3" rx="1" fill="${c}"/><rect x="15" y="18" width="3" height="3" rx="1" fill="${c}"/></svg>`,
-    check: (s) => `<svg class="g" width="${s}" height="${s}" viewBox="0 0 24 24"><circle cx="12" cy="12" r="11" fill="#2A9D5C"/><path d="M7 12.5l3.2 3.2L17 9" fill="none" stroke="#FBF8FF" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round"/></svg>`,
-    next: (s) => `<svg class="g" width="${s}" height="${s}" viewBox="0 0 24 24"><circle cx="12" cy="12" r="11.5" fill="#FEB700"/><path d="M11 5v14M11 6h5l2 2.5-2 2.5h-5" fill="none" stroke="#171A2C" stroke-width="2.2" stroke-linejoin="round"/></svg>`,
-    warn: (s) => `<svg class="g" width="${s}" height="${s}" viewBox="0 0 24 24"><path d="M12 2.5L23 21.5H1z" fill="#FF7B72"/><path d="M12 9v6" stroke="#000" stroke-width="2.4" stroke-linecap="round"/><circle cx="12" cy="18.2" r="1.3" fill="#000"/></svg>`,
-    cap: (s, c) => `<svg class="g" width="${s}" height="${s}" viewBox="0 0 24 24"><path d="M1.5 9L12 4l10.5 5L12 14z" fill="${c}"/><path d="M6 11.5v4.5c2 2 10 2 12 0v-4.5L12 14.5z" fill="${c}"/></svg>`,
-    home: (s) => `<svg class="g" width="${s}" height="${s}" viewBox="0 0 24 24" fill="none" stroke="#FBF8FF" stroke-width="2.2" stroke-linejoin="round"><path d="M3 11.5L12 4l9 7.5V20a1 1 0 0 1-1 1h-5v-6H9v6H4a1 1 0 0 1-1-1z"/></svg>`,
-    checkPlain: (s, c) => `<svg class="g" width="${s}" height="${s}" viewBox="0 0 24 24" fill="none" stroke="${c}" stroke-width="1.6"><circle cx="12" cy="12" r="10"/><path d="M7.5 12.5l3 3L16.5 9" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>`,
-    route: (s, c) => `<svg class="g" width="${s}" height="${s}" viewBox="0 0 24 24" fill="none" stroke="${c}" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M4 20v-5a4 4 0 0 1 4-4h9M14 7l4 4-4 4"/></svg>`,
-    pin: (s, c) => `<svg class="g" width="${s}" height="${s}" viewBox="0 0 24 24" fill="none" stroke="${c}" stroke-width="2.2"><path d="M12 21s6-6.2 6-11a6 6 0 1 0-12 0c0 4.8 6 11 6 11z"/><circle cx="12" cy="10" r="2.2"/></svg>`,
-    clock: (s, c, back) => `<svg class="g" width="${s}" height="${s}" viewBox="0 0 24 24" fill="none" stroke="${c}" stroke-width="2.4" stroke-linecap="round"><circle cx="12" cy="12" r="9"/><path d="M12 7v5l3 2"/>${back ? '<path d="M3 5v4h4" />' : ''}</svg>`,
-  };
-
-  /* the states: views as trip.js lockView / tripBackground.viewFor produce them */
+  /* the states: views as trip.js lockView / tripBackground.viewFor produce them (the Widget lab's samples) */
   const S = [
     { h: 'Walking to the stop', p: 'The walk leads; the bus is the board under it.',
-      v: Object.assign({ kind: 'walk', title: 'Walk to Alumni Hall', marker: 'live', until: NOW + 107e3, mins: 3, distM: 320, progress: .38, arriveAt: NOW + 21 * MIN, destName: 'Wells Library', cls: { code: 'A327', at: NOW + 40 * MIN } }, F) },
+      v: Object.assign({ kind: 'walk', title: 'Walk to Alumni Hall', marker: 'live', until: NOW + 107e3, mins: 3, distM: 320, progress: .38, arriveAt: NOW + 21 * MIN, destName: 'Wells Library', cls: { code: 'A327', at: NOW + 40 * MIN }, walkAfter: 4, rideMin: 6, rideStops: 6 }, F) },
     { h: 'At the stop · LIVE', p: 'A tracked bus: a real countdown.',
-      v: Object.assign({ kind: 'bus', title: 'F bus in', sub: 'At Alumni Hall', marker: 'live', until: NOW + 107e3, arriveAt: NOW + 24 * MIN, destName: 'Wells Library', rideMin: 6, walkAfter: 4 }, F) },
+      v: Object.assign({ kind: 'bus', title: 'F bus in', sub: 'At Alumni Hall', marker: 'live', until: NOW + 107e3, arriveAt: NOW + 24 * MIN, destName: 'Wells Library', rideMin: 6, walkAfter: 4, cls: { code: 'A327', at: NOW + 40 * MIN } }, F) },
     { h: 'At the stop · Scheduled', p: 'The timetable’s time, dimmed, never a countdown.',
       v: Object.assign({ kind: 'bus', title: 'F bus about', sub: 'At Alumni Hall', marker: 'sched', approx: true, until: NOW + 9 * MIN, arriveAt: NOW + 41 * MIN, destName: 'Wells Library', rideMin: 6, walkAfter: 4 }, F) },
     { h: 'Feed went quiet', p: 'Locked, page asleep: the last live time and when it was live.',
@@ -167,154 +145,156 @@ footer ul{ margin:0; padding-left:18px; display:grid; gap:6px; }
     { h: 'Going home', p: 'The destination is your saved Home.',
       v: Object.assign({ kind: 'bus', title: 'F bus at', sub: 'At Alumni Hall', marker: 'live', until: NOW + 3 * MIN, home: true, arriveAt: NOW + 24 * MIN, destName: 'Home', rideMin: 6, walkAfter: 4 }, F) },
     { h: 'Arrived', p: 'Held 45 s, then the activity ends.',
-      v: { kind: 'done', title: 'You’re here', sub: 'Wells Library', destName: 'Wells Library' } },
+      v: { kind: 'done', title: 'You’re here', sub: 'Wells Library', destName: 'Wells Library', steps: [{ k: 'walk', n: 'Alumni Hall', t: '3 min' }, { k: 'bus', n: 'F bus', t: '6 min' }, { k: 'dest', n: 'Wells Library', t: '2:24 PM' }] } },
   ];
 
+  /* ---- the renderer: the nodes laLayout.js writes, in HTML ---- */
+  const COLORS = { ink: '#171A2C', paper: '#FBF8FF', paper70: '#B7B5C0', paper35: 'rgba(183,181,192,.5)', honey: '#FEB700', bad: '#FF7B72', good: '#2A9D5C', track: 'rgba(251,248,255,.18)', hairline: 'rgba(251,248,255,.22)', clear: 'transparent' };
+  const color = c => COLORS[c] || (/^#[0-9A-Fa-f]{6}$/.test(c || '') ? c : COLORS.paper);
+  const WEIGHT = { l: 300, r: 400, m: 500, sb: 600, b: 700, h: 800 };
+  const weight = w => WEIGHT[w] || 400;
+  const px = v => (v == null ? null : v + 'px');
 
-  /* ---- the Swift pieces, ported (LiveActivityWidget.swift) ---- */
-  const countsDown = v => v.marker === 'live' && !v.approx;
-  const isNext = v => v.kind === 'ride' && !!v.next;
-  const hasAlert = v => !!v.alert && v.kind !== 'done';
-  const toStop = v => v.kind === 'walk' && !!v.marker;
-  const finalWalk = v => v.kind === 'walk' && !v.marker;
-  const homeLed = v => !!v.home && (toStop(v) || v.kind === 'bus') && v.arriveAt != null;
-  const lateNow = v => v.late != null && (v.kind === 'walk' || v.kind === 'ride') && !isNext(v) ? v.late : null;
-  const busName = v => v.route ? v.route + ' bus' : 'Bus';
-  const showsRoute = v => !!v.route && v.kind !== 'done' && !finalWalk(v);
-  const dist = m => m * 3.28084 < 1000 ? Math.round(m * 3.28084 / 10) * 10 + ' ft' : (m / 1609.34).toFixed(1) + ' mi';
-  const cd = at => { const s = Math.max(0, Math.round((at - Date.now()) / 1000)); const h = Math.floor(s / 3600), m = Math.floor(s % 3600 / 60), ss = String(s % 60).padStart(2, '0'); return h ? h + ':' + String(m).padStart(2, '0') + ':' + ss : m + ':' + ss; };
-  const tick = (at, color) => '<span class="num tick" data-at="' + at + '" style="color:' + (color || 'inherit') + '">' + cd(at) + '</span>';
-  function glance(v, compact) {
-    if (v.kind === 'done') return { t: 'here' };
-    if (isNext(v)) return { t: 'next' };
-    if (lateNow(v) != null) return { t: 'late', l: v.late };
-    if (v.kind === 'ride') return v.stops >= 1 ? { t: 'stops', n: v.stops } : { t: 'nothing' };
-    if (compact && hasAlert(v) && (v.kind === 'bus' || toStop(v))) return { t: 'alert' };
-    if (homeLed(v)) return { t: 'clock', at: v.arriveAt, dim: false };
-    if (finalWalk(v) && v.mins != null) return { t: 'minutes', m: v.mins };
-    if (v.until) return countsDown(v) ? { t: 'countdown', at: v.until } : { t: 'clock', at: v.until, dim: v.marker !== 'sched' };
-    if (v.kind === 'walk' && v.mins != null) return { t: 'minutes', m: v.mins };
-    return { t: 'nothing' };
+  /* glyphs standing in for SF Symbols */
+  const stroke = (s, c, paths, extra) => `<svg class="g" width="${s}" height="${s}" viewBox="0 0 24 24" fill="none" stroke="${c}" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round">${paths}${extra || ''}</svg>`;
+  const SYM = {
+    'figure.walk': (s, c) => `<svg class="g" width="${s}" height="${s}" viewBox="0 0 24 24" fill="none" stroke="${c}" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><circle cx="13.5" cy="4" r="2" fill="${c}" stroke="none"/><path d="M10 21l2.5-6.5L15 17v4M12.5 14.5l1-5.5-3.5 1.5-1.5 3.5M13.5 9l2.5 3 3 1"/></svg>`,
+    'bus': (s, c) => stroke(s, c, '<rect x="4" y="3" width="16" height="15" rx="3"/><path d="M4 10h16M8 14.5h.01M16 14.5h.01M7 18v3M17 18v3"/>'),
+    'bus.fill': (s, c) => `<svg class="g" width="${s}" height="${s}" viewBox="0 0 24 24"><rect x="4" y="3" width="16" height="15" rx="3" fill="${c}"/><rect x="6.5" y="6" width="11" height="5" rx="1" fill="#000"/><circle cx="8" cy="14.5" r="1.3" fill="#000"/><circle cx="16" cy="14.5" r="1.3" fill="#000"/><rect x="6" y="18" width="3" height="3" rx="1" fill="${c}"/><rect x="15" y="18" width="3" height="3" rx="1" fill="${c}"/></svg>`,
+    'house': (s, c) => stroke(s, c, '<path d="M3 11.5L12 4l9 7.5V20a1 1 0 0 1-1 1h-5v-6H9v6H4a1 1 0 0 1-1-1z"/>'),
+    'checkmark.circle': (s, c) => `<svg class="g" width="${s}" height="${s}" viewBox="0 0 24 24" fill="none" stroke="${c}" stroke-width="1.6"><circle cx="12" cy="12" r="10"/><path d="M7.5 12.5l3 3L16.5 9" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>`,
+    'checkmark': (s, c) => stroke(s, c, '<path d="M5 12.5l4.5 4.5L19 7"/>'),
+    'graduationcap': (s, c) => `<svg class="g" width="${s}" height="${s}" viewBox="0 0 24 24"><path d="M1.5 9L12 4l10.5 5L12 14z" fill="${c}"/><path d="M6 11.5v4.5c2 2 10 2 12 0v-4.5L12 14.5z" fill="${c}"/></svg>`,
+    'exclamationmark.triangle.fill': (s, c) => `<svg class="g" width="${s}" height="${s}" viewBox="0 0 24 24"><path d="M12 2.5L23 21.5H1z" fill="${c}"/><path d="M12 9v6" stroke="#000" stroke-width="2.4" stroke-linecap="round"/><circle cx="12" cy="18.2" r="1.3" fill="#000"/></svg>`,
+    'clock.badge.exclamationmark': (s, c) => stroke(s, c, '<circle cx="12" cy="12" r="9"/><path d="M12 7v5l3 2"/>'),
+    'clock': (s, c) => stroke(s, c, '<circle cx="12" cy="12" r="9"/><path d="M12 7v5l3 2"/>'),
+    'mappin': (s, c) => stroke(s, c, '<path d="M12 21s6-6.2 6-11a6 6 0 1 0-12 0c0 4.8 6 11 6 11z"/><circle cx="12" cy="10" r="2.2"/>'),
+    'arrow.triangle.turn.up.right.diamond': (s, c) => stroke(s, c, '<path d="M4 20v-5a4 4 0 0 1 4-4h9M14 7l4 4-4 4"/>'),
+    'figure.walk.departure': (s, c) => stroke(s, c, '<rect x="2.8" y="4" width="10.2" height="14.8" rx="2.5"/><rect x="4.8" y="6.2" width="6.2" height="4.1" rx=".8"/><path d="M12.3 12h8.7M17.7 8.8L21 12l-3.3 3.2"/>'),
+    'graduationcap.fill': (s, c) => SYM.graduationcap(s, c),
+    'house.fill': (s, c) => `<svg class="g" width="${s}" height="${s}" viewBox="0 0 24 24"><path d="M3 11.5L12 4l9 7.5V20a1 1 0 0 1-1 1h-5v-6H9v6H4a1 1 0 0 1-1-1z" fill="${c}"/></svg>`,
+    'chevron.right': (s, c) => stroke(s, c, '<path d="M9 5l7 7-7 7"/>'),
+  };
+  const symbol = (name, s, c) => (SYM[name] || SYM.bus)(s, c);
+
+  function runsHtml(n) {
+    const runs = n.r || [{ s: n.s || '' }];
+    return runs.map(r => {
+      const st = [];
+      if (r.f != null) st.push('font-size:' + r.f + 'px');
+      if (r.w) st.push('font-weight:' + weight(r.w));
+      if (r.c) st.push('color:' + color(r.c));
+      const open = st.length ? '<span style="' + st.join(';') + '">' : '<span>';
+      if (r.tm != null) return open + '<span class="tick" data-at="' + r.tm + '" data-h="' + (r.h == null ? 1 : r.h) + '">' + cd(r.tm, r.h !== 0) + '</span></span>';
+      if (r.ck != null) return open + esc(r.sh ? hm(r.ck) : time(r.ck)) + '</span>';
+      return open + esc(r.s || '') + '</span>';
+    }).join('');
   }
-  function glanceText(v, size, compact) {
-    const g = glance(v, compact), u = Math.round(size * 0.72);
-    const num = (a, unit, color) => '<span class="num" style="font-size:' + size + 'px;color:' + color + '">' + a + '<span style="font-size:' + u + 'px;font-weight:500"> ' + unit + '</span></span>';
-    switch (g.t) {
-      case 'countdown': return '<span class="num" style="font-size:' + size + 'px">' + tick(g.at) + '</span>';
-      case 'clock': return '<span class="num" style="font-size:' + size + 'px;color:' + (g.dim ? 'var(--p70)' : 'var(--pw)') + '">' + hm(g.at) + '</span>';
-      case 'minutes': return num(g.m, 'min', 'var(--pw)');
-      case 'late': return num('+' + g.l, 'late', 'var(--bad)');
-      case 'stops': return num(g.n, g.n === 1 ? 'stop' : 'stops', 'var(--pw)');
-      case 'next': return '<span class="num" style="font-size:' + size + 'px;color:var(--honey)">Next</span>';
-      case 'alert': return '<span class="num" style="font-size:' + size + 'px;color:var(--honey)">Alert</span>';
-      case 'here': return '<span class="num" style="font-size:' + size + 'px">Here</span>';
+
+  function render(n, defs, depth) {
+    if (!n || typeof n !== 'object' || (depth || 0) > 12) return '';
+    const kids = () => (n.k || []).map(c => render(c, defs, (depth || 0) + 1)).join('');
+    const st = [];
+    if (n.pd && n.pd.length === 4) st.push('padding:' + n.pd.map(px).join(' '));
+    if (n.fw != null) st.push('width:' + n.fw + 'px', 'flex:none');
+    if (n.fh != null) st.push('height:' + n.fh + 'px');
+    if (n.mw === 1) st.push('flex:1 1 0%', 'min-width:0', 'align-self:stretch', 'width:100%');
+    if (n.mh === 1) st.push('height:100%');
+    if (n.mxw != null) st.push('max-width:' + n.mxw + 'px');
+    if (n.op != null) st.push('opacity:' + n.op);
+    if (n.fx) st.push('flex:none');
+    const alignFlex = { l: 'flex-start', r: 'flex-end', c: 'center', t: 'flex-start', b: 'flex-end', tl: 'flex-start', tr: 'flex-end' };
+    if ((n.fw != null || n.fh != null || n.mw === 1 || n.mxw != null) && n.t !== 'row' && n.t !== 'col' && n.t !== 'bar') {
+      st.push('display:inline-flex', 'justify-content:' + (alignFlex[n.al] || 'center'), 'align-items:center');
+      if (n.al === 'r') st.push('text-align:right');
+    }
+    const lbl = n.lbl ? ' aria-label="' + esc(n.lbl) + '" role="img"' : '';
+    let inner = '', cls = 'n-' + (n.t || 'x');
+    switch (n.t) {
+      case 'row':
+        st.push('align-items:' + ({ t: 'flex-start', b: 'flex-end', fb: 'baseline' }[n.a] || 'center'), 'gap:' + (n.g == null ? 8 : n.g) + 'px');
+        if (n.al === 'tl' || n.al === 'l') st.push('justify-content:flex-start');
+        inner = kids(); break;
+      case 'col':
+        st.push('align-items:' + ({ c: 'center', r: 'flex-end' }[n.a] || 'flex-start'), 'gap:' + (n.g == null ? 8 : n.g) + 'px');
+        if (n.mh === 1) st.push('justify-content:flex-start');
+        inner = kids(); break;
+      case 'z': inner = kids(); break;
+      case 'text':
+        if (n.f != null) st.push('font-size:' + n.f + 'px');
+        st.push('font-weight:' + weight(n.w || 'r'), 'color:' + color(n.c || 'paper'));
+        if ((n.n || 1) > 1) { st.push('white-space:normal', 'display:-webkit-box', '-webkit-line-clamp:' + n.n, '-webkit-box-orient:vertical'); }
+        if (n.d === 'r') cls += ' round';
+        if (n.m != null && n.m < 1) st.push('--m:' + n.m);
+        inner = runsHtml(n); break;
+      case 'glyph': {
+        const size = n.f || 16;
+        inner = symbol(n.s, Math.round(size * 1.1), color(n.c || 'paper'));
+        if (n.fw == null && n.fh == null) st.push('width:' + Math.round(size * 1.1) + 'px', 'height:' + Math.round(size * 1.1) + 'px');
+        break;
+      }
+      case 'tile': {
+        const z = n.z || 28, s = n.s || '';
+        st.push('min-width:' + z + 'px', 'height:' + z + 'px', 'font-size:' + Math.round(z * .55) + 'px', 'border-radius:' + Math.round(z * .28) + 'px', 'background:' + color(n.bg || 'honey'), 'color:' + color(n.c || 'ink'), 'padding:0 ' + (s.length > 1 ? 4 : 0) + 'px');
+        inner = esc(s); break;
+      }
+      case 'pill':
+        if (n.f != null) st.push('font-size:' + n.f + 'px');
+        st.push('font-weight:' + weight(n.w || 'r'), 'color:' + color(n.c || 'paper'), 'padding:' + (n.py == null ? 3 : n.py) + 'px ' + (n.px == null ? 8 : n.px) + 'px');
+        if (n.bg) st.push('background:' + color(n.bg));
+        if (n.st) st.push('box-shadow:inset 0 0 0 ' + (n.sw == null ? 1 : n.sw) + 'px ' + color(n.st));
+        /* an empty pill is a shape sized by its padding (the rule, the pager marks): an empty 10pt text is about 12pt tall */
+        if (!n.s && !(n.r || []).some(r => r.s || r.ck != null || r.tm != null)) st.push('min-height:' + Math.round((n.f || 14) * 1.2) + 'px', 'min-width:0', 'box-sizing:content-box');
+        inner = (n.dot ? '<i class="n-dot" style="width:5px;height:5px;background:' + color(n.dot) + '"></i>' : '') + '<span>' + runsHtml(n) + '</span>'; break;
+      case 'bar':
+        if (n.h != null) st.push('height:' + n.h + 'px');
+        inner = '<i style="width:' + Math.round((n.v || 0) * 100) + '%;background:' + color(n.c || 'honey') + '"></i>'; break;
+      case 'dots': {
+        const tot = Math.max(1, n.tot || 1), passed = Math.max(0, Math.min(tot - 1, n.p || 0)), on = color(n.c || 'honey'), off = color(n.oc || 'paper70');
+        inner = Array.from({ length: tot }, (_, i) => (i > 0 ? '<i style="flex:1;height:2px;background:' + (i <= passed ? on : 'rgba(183,181,192,.6)') + '"></i>' : '') + '<i style="width:10px;height:10px;border-radius:5px;box-sizing:border-box;border:1.5px solid ' + (i <= passed ? on : off) + ';background:' + (i <= passed ? on : 'transparent') + '"></i>').join('');
+        break;
+      }
+      case 'line': if (n.c) st.push('background:' + color(n.c)); if (n.h != null) st.push('height:' + n.h + 'px'); break;
+      case 'sp': st.push('min-width:' + (n.min || 0) + 'px', 'min-height:' + (n.min || 0) + 'px'); break;
+      case 'dot': st.push('width:' + (n.z || 4) + 'px', 'height:' + (n.z || 4) + 'px', 'background:' + color(n.c || 'paper')); break;
+      case 'ref': return defs && defs[n.id] ? render(defs[n.id], defs, (depth || 0) + 1) : '';
       default: return '';
     }
+    return '<' + (n.t === 'text' ? 'span' : 'div') + ' class="' + cls + '"' + lbl + (st.length ? ' style="' + st.join(';') + '"' : '') + '>' + inner + '</' + (n.t === 'text' ? 'span' : 'div') + '>';
   }
-  const tile = (v, size) => showsRoute(v) ? '<span class="tile" style="width:' + size + 'px;height:' + size + 'px;font-size:' + Math.round(size * .55) + 'px;background:' + v.rc + ';color:' + v.rt + '">' + esc(v.route) + '</span>' : '';
-  const glyph = (v, s) => '<span class="glyphbox" style="width:' + Math.round(s * 1.35) + 'px;height:' + Math.round(s * 1.35) + 'px">' + (v.kind === 'done' ? G.check(s * 1.15) : isNext(v) ? G.bus(s, '#FEB700') : homeLed(v) ? G.home(s) : v.kind === 'walk' ? G.walk(s, '#FBF8FF') : G.bus(s, '#FBF8FF')) + '</span>';
-  const pill = (v, kind, small) => {
-    const fs = small ? 11 : 12;
-    if (kind === 'alert') return '<span class="pill" style="font-size:' + (fs + 1) + 'px;color:var(--honey);box-shadow:inset 0 0 0 1.5px var(--honey);padding:4px 9px">Alert</span>';
-    if (kind === 'next') return '<span class="pill live" style="font-size:' + (fs + 1) + 'px;font-weight:600">Next stop</span>';
-    if (v.marker === 'live') return '<span class="pill live" style="font-size:' + fs + 'px"><i style="width:5px;height:5px;border-radius:3px;background:var(--ink);display:inline-block;margin-right:4px"></i>LIVE</span>';
-    if (v.marker === 'sched') return '<span class="pill out" style="font-size:' + fs + 'px">Scheduled</span>';
-    if (v.marker === 'was') return '<span class="pill out" style="font-size:' + fs + 'px">Live at ' + time(v.liveAt) + '</span>';
-    return '';
-  };
-  function mainLine(v) {
-    if (v.kind === 'done') return { t: 'You’re here', s: v.sub || v.destName };
-    if (isNext(v)) return { t: 'Your stop is next', s: v.sub };
-    if (homeLed(v)) return { t: 'Home about ' + time(v.arriveAt), s: v.until ? 'Board ' + (v.route || 'the bus') + ' at ' + time(v.until) : '' };
-    if (hasAlert(v) && v.kind === 'bus') return { t: v.alert, s: v.sub };
-    if (v.kind === 'bus' && v.until) return { t: countsDown(v) ? busName(v) + ' in ' + tick(v.until) : busName(v) + (v.approx ? ' about ' : ' at ') + time(v.until), s: v.sub };
-    if (v.kind === 'ride') return { t: v.sub || v.title, s: '' };
-    if (toStop(v)) return { t: v.title, s: (hasAlert(v) || lateNow(v) != null) && v.until ? busName(v) + ' at ' + time(v.until) : v.mins != null ? 'Bus stop in about ' + v.mins + ' min' : '' };
-    if (finalWalk(v)) { const p = []; if (v.mins != null) p.push(v.mins + ' min left'); if (v.distM != null) p.push(dist(v.distM)); return { t: v.title, s: p.join(' · ') || v.sub || '' }; }
-    return { t: v.title, s: v.sub || '' };
-  }
-  function boards(v) {
-    const out = [];
-    const cls = v.cls ? { i: 'cap', l: v.cls.code + (v.cls.at > Date.now() ? ' at ' : ' started at ') + time(v.cls.at) } : null;
-    if (v.kind === 'done') return [{ i: 'check', l: 'Trip complete' }];
-    if (hasAlert(v) && (v.kind === 'bus' || toStop(v))) out.push({ i: 'warn', l: v.alert, tint: 'var(--pw)', pill: 'alert' });
-    if (lateNow(v) != null && v.cls) out.push({ i: 'clock', l: 'About ' + v.late + ' min late for ' + v.cls.code, tint: 'var(--bad)' });
-    if (isNext(v)) { out.push({ i: 'walk', l: v.walkAfter ? 'Walk ' + v.walkAfter + ' min after exit' : v.sub, pill: 'next' }); return out; }
-    if (v.kind === 'ride') {
-      const p = []; if (v.walkAfter) p.push('Walk ' + v.walkAfter + ' min after exit'); if (v.arriveAt) p.push('Arrive about ' + time(v.arriveAt));
-      const dots = v.rideStops && v.stops != null;
-      if (p.length || dots) out.push({ i: 'walk', l: p.length ? p.join(' · ') : v.sub, g: dots ? 'dots' : undefined });
-    } else if (homeLed(v)) {
-      const p = []; if (v.rideMin) p.push('Ride ' + v.rideMin + ' min'); if (v.walkAfter) p.push('Walk ' + v.walkAfter + ' min');
-      if (p.length) out.push({ i: 'route', l: p.join(' · '), pill: 'marker' });
-    } else if (toStop(v) && v.until) {
-      out.push({ i: 'bus', l: busName(v) + ' at ' + time(v.until) + (v.distM != null ? ' · ' + dist(v.distM) + ' left' : ''), tint: 'var(--pw)', pill: 'marker' });
-      if (v.arriveAt) out.push({ i: 'pin', l: (v.destName || 'Arrive') + ' about ' + time(v.arriveAt) });
-    } else if (finalWalk(v)) {
-      if (v.progress != null) out.push({ i: 'walk', l: v.until ? 'Arrive about ' + time(v.until) : v.title, g: 'bar' });
-      else if (v.until) out.push({ i: 'pin', l: 'Arrive about ' + time(v.until) });
-    } else if (v.kind === 'bus') {
-      if (v.arriveAt) out.push({ i: 'pin', l: (v.destName || 'Arrive') + ' about ' + time(v.arriveAt) });
-      const p = []; if (v.rideMin) p.push('Ride ' + v.rideMin + ' min'); if (v.walkAfter) p.push('Walk ' + v.walkAfter + ' min');
-      if (p.length) out.push({ i: 'route', l: p.join(' · ') });
-    }
-    if (cls && lateNow(v) == null) out.push(cls);
-    return out;
-  }
-  const BI = { cap: (c) => G.cap(13, c), check: (c) => G.checkPlain(13, c), warn: () => G.warn(13), clock: (c) => G.clock(13, c), walk: (c) => G.walk(13, c), bus: (c) => G.bus(13, c), route: (c) => G.route(13, c), pin: (c) => G.pin(13, c) };
-  const hexOf = t => t === 'var(--bad)' ? '#FF7B72' : t === 'var(--pw)' ? '#FBF8FF' : '#B7B5C0';
-  function boardHtml(v, b, showPill) {
-    let g = '';
-    if (b.g === 'dots' && v.rideStops) { const n = v.rideStops + 1, passed = v.rideStops - v.stops; g = '<div style="display:flex;align-items:center;height:12px;margin-bottom:8px">' + Array.from({ length: n }, (_, i) => (i > 0 ? '<i style="flex:1;height:2px;background:' + (i <= passed ? v.rc : 'rgba(183,181,192,.6)') + '"></i>' : '') + '<i style="width:10px;height:10px;border-radius:5px;box-sizing:border-box;border:1.5px solid ' + (i <= passed ? v.rc : '#B7B5C0') + ';background:' + (i <= passed ? v.rc : 'transparent') + '"></i>').join('') + '</div>'; }
-    if (b.g === 'bar' && v.progress != null) g = '<div class="bar" style="margin-bottom:8px"><i style="width:' + Math.round(v.progress * 100) + '%;background:#FEB700"></i></div>';
-    const tint = b.tint || 'var(--p70)';
-    return g + '<div class="board"><span style="width:18px;display:flex;justify-content:center">' + BI[b.i](hexOf(tint)) + '</span><span style="color:' + tint + ';font-weight:' + (b.tint ? 600 : 400) + ';overflow:hidden;text-overflow:ellipsis">' + esc(b.l) + '</span>' + (showPill && b.pill ? '<span style="margin-left:auto">' + pill(v, b.pill, true) + '</span>' : '') + '</div>';
-  }
-  function lockCard(v, page) {
-    const m = mainLine(v), bs = boards(v), b = bs.length ? bs[page % bs.length] : null;
-    return '<div class="isl lock">'
-      + '<div class="row">' + glyph(v, 22) + tile(v, 28) + '<div class="txt"><div class="t" style="color:' + (isNext(v) ? 'var(--pw)' : 'var(--pw)') + '">' + m.t + '</div>' + (m.s ? '<div class="s">' + esc(m.s) + '</div>' : '') + '</div>'
-      + '<div class="val">' + (v.kind !== 'done' ? glanceText(v, 24, false) : '') + (v.kind === 'bus' && !homeLed(v) && !hasAlert(v) ? pill(v, 'marker', true) : '') + '</div></div>'
-      + (b ? '<div class="hr"></div>' + boardHtml(v, b, true).replace('</div>' + '', (bs.length > 1 ? '<span class="dots">' + bs.map((_, i) => '<i class="' + (i === page % bs.length ? 'on' : '') + '"></i>').join('') + '</span></div>' : '</div>')) : '')
-      + '</div>';
-  }
-  function expanded(v) {
-    const m = mainLine(v), bs = boards(v), b = bs[0];
-    const trail = hasAlert(v) && (v.kind === 'bus' || toStop(v)) ? pill(v, 'alert') : (v.kind === 'bus' && !homeLed(v) ? pill(v, 'marker') : '');
-    return '<div class="isl exp">'
-      + '<div class="lead">' + glyph(v, 22) + tile(v, 30) + '</div>'
-      + '<div class="camrow"><i></i></div>'
-      + '<div class="trail">' + trail + '</div>'
-      + '<div class="center"><div class="title">' + m.t + '</div>' + (m.s ? '<div class="sub">' + esc(m.s) + '</div>' : '') + '</div>'
-      + (b ? '<div class="foot">' + (b.g ? '' : '<div class="hr" style="height:1px;background:rgba(251,248,255,.22)"></div>') + boardHtml(v, b, true) + '</div>' : '')
-      + '</div>';
-  }
-  const compactLeading = v => glyph(v, 15) + tile(v, 22);
-  const compactTrailing = v => glanceText(v, 16, true);
-  function minimal(v) {
-    const g = glance(v, false);
-    switch (g.t) {
-      case 'countdown': return tick(g.at, v.marker === 'live' ? 'var(--honey)' : 'var(--pw)');
-      case 'clock': return '<span class="num" style="color:' + (g.dim ? 'var(--p70)' : 'var(--pw)') + '">' + hm(g.at) + '</span>';
-      case 'minutes': return '<span class="num" style="font-size:15px">' + g.m + '<span style="font-size:10px">m</span></span>';
-      case 'late': return '<span class="num" style="color:var(--bad);font-size:14px">+' + g.l + '<span style="font-size:10px">m</span></span>';
-      case 'stops': return '<span class="num" style="font-size:16px">' + g.n + '</span>';
-      case 'next': return '<span class="num" style="color:var(--honey);font-size:12px">Next</span>';
-      case 'here': return G.checkPlain(17, '#FBF8FF');
-      default: return glyph(v, 13);
-    }
-  }
+  const draw = (lay, key) => (lay && lay[key] ? render(lay[key], lay.d || {}, 0) : '');
 
-  document.getElementById('rows').innerHTML = S.map(s => `
+  /* the real card turns a rail page each redraw (App.js LA_BOARD_MS); here every 4 s */
+  let page = 0;
+  const drawAll = () => { document.getElementById('rows').innerHTML = S.map(s => {
+    const a = LaLayout.activity(s.v, { page, now: NOW });
+    const w = LaLayout.widgets(s.v, { now: NOW });
+    return `
     <div class="cols row">
       <div class="state"><h2>${esc(s.h)}</h2><p>${esc(s.p)}</p></div>
-      <div class="cell left"><span class="mlabel">Lock Screen</span>${lockCard(s.v, 0)}</div>
-      <div class="cell left"><span class="mlabel">Expanded</span>${expanded(s.v)}</div>
-      <div class="cell"><span class="mlabel">Compact</span><div class="isl cmp"><span class="l">${compactLeading(s.v)}</span><span class="cam"></span><span class="r">${compactTrailing(s.v)}</span></div></div>
-      <div class="cell"><span class="mlabel">Minimal</span><div class="isl min">${minimal(s.v)}</div></div>
-    </div>`).join('');
+      <div class="cell left"><span class="mlabel">Lock Screen</span><div class="isl lock">${draw(a, 'lock')}</div></div>
+      <div class="cell left"><span class="mlabel">Expanded</span><div class="isl exp"><div class="lead">${draw(a, 'xl')}</div><div class="camrow"><i></i></div><div class="trail">${draw(a, 'xt')}</div><div class="center">${draw(a, 'xc')}</div><div class="foot">${draw(a, 'xb')}</div></div></div>
+      <div class="cell"><span class="mlabel">Compact</span><div class="isl cmp"><span>${draw(a, 'cl')}</span><span class="cam"></span><span>${draw(a, 'ct')}</span></div></div>
+      <div class="cell"><span class="mlabel">Minimal</span><div class="isl min">${draw(a, 'mn')}</div></div>
+    </div>
+    <div class="wrow">
+      <div class="wcell"><span class="wlabel">Live Trip · small</span><div class="isl wsm">${draw(w, 'sm')}</div></div>
+      <div class="wcell"><span class="wlabel">Live Trip · medium</span><div class="isl wmd">${draw(w, 'md')}</div></div>
+      <div class="wcell"><span class="wlabel">Live Trip · large</span><div class="isl wlg">${draw(w, 'lg')}</div></div>
+    </div>`;
+  }).join(''); run(); fit(); };
+  /* SwiftUI's minimumScaleFactor, approximated: a one-line text that does not fit shrinks, down to its m */
+  function fit() {
+    document.querySelectorAll('.n-text[style*="--m:"]').forEach(el => {
+      const m = parseFloat(el.style.getPropertyValue('--m')) || 1, base = parseFloat(getComputedStyle(el).fontSize);
+      let scale = 1;
+      while (el.scrollWidth > el.clientWidth + 0.5 && scale > m) { scale -= 0.02; el.style.fontSize = (base * scale).toFixed(2) + 'px'; el.querySelectorAll('span[style*="font-size"]').forEach(s => { if (!s.dataset.f) s.dataset.f = parseFloat(s.style.fontSize); s.style.fontSize = (s.dataset.f * scale).toFixed(2) + 'px'; }); }
+    });
+  }
 
-  const run = () => document.querySelectorAll('.tick').forEach(el => { el.textContent = cd(+el.dataset.at); });
+  function run() { document.querySelectorAll('.tick').forEach(el => { el.textContent = cd(+el.dataset.at, el.dataset.h !== '0'); }); }
+  drawAll();
   setInterval(run, 1000);
+  setInterval(() => { page++; drawAll(); }, 4000);
 })();
 </script>
