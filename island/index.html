@@ -228,6 +228,7 @@ footer ul{ margin:0; padding-left:18px; display:grid; gap:6px; }
     if (homeLed(v)) return { t: 'Home about ' + time(v.arriveAt), s: v.until ? 'Board ' + (v.route || 'the bus') + ' at ' + time(v.until) : '' };
     if (hasAlert(v) && v.kind === 'bus') return { t: v.alert, s: v.sub };
     if (v.kind === 'bus' && v.until) return { t: countsDown(v) ? busName(v) + ' in ' + tick(v.until) : busName(v) + (v.approx ? ' about ' : ' at ') + time(v.until), s: v.sub };
+    if (v.kind === 'ride') return { t: v.sub || v.title, s: '' };
     if (toStop(v)) return { t: v.title, s: (hasAlert(v) || lateNow(v) != null) && v.until ? busName(v) + ' at ' + time(v.until) : v.mins != null ? 'Bus stop in about ' + v.mins + ' min' : '' };
     if (finalWalk(v)) { const p = []; if (v.mins != null) p.push(v.mins + ' min left'); if (v.distM != null) p.push(dist(v.distM)); return { t: v.title, s: p.join(' · ') || v.sub || '' }; }
     return { t: v.title, s: v.sub || '' };
@@ -240,9 +241,9 @@ footer ul{ margin:0; padding-left:18px; display:grid; gap:6px; }
     if (lateNow(v) != null && v.cls) out.push({ i: 'clock', l: 'About ' + v.late + ' min late for ' + v.cls.code, tint: 'var(--bad)' });
     if (isNext(v)) { out.push({ i: 'walk', l: v.walkAfter ? 'Walk ' + v.walkAfter + ' min after exit' : v.sub, pill: 'next' }); return out; }
     if (v.kind === 'ride') {
-      if (v.rideStops && v.stops != null) out.push({ i: 'bus', l: v.stops === 1 ? '1 stop to go' : v.stops + ' stops to go', g: 'dots' });
       const p = []; if (v.walkAfter) p.push('Walk ' + v.walkAfter + ' min after exit'); if (v.arriveAt) p.push('Arrive about ' + time(v.arriveAt));
-      if (p.length) out.push({ i: 'walk', l: p.join(' · ') });
+      const dots = v.rideStops && v.stops != null;
+      if (p.length || dots) out.push({ i: 'walk', l: p.length ? p.join(' · ') : v.sub, g: dots ? 'dots' : undefined });
     } else if (homeLed(v)) {
       const p = []; if (v.rideMin) p.push('Ride ' + v.rideMin + ' min'); if (v.walkAfter) p.push('Walk ' + v.walkAfter + ' min');
       if (p.length) out.push({ i: 'route', l: p.join(' · '), pill: 'marker' });
