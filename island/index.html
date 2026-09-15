@@ -212,7 +212,7 @@ footer ul{ margin:0; padding-left:18px; display:grid; gap:6px; }
     }
   }
   const tile = (v, size) => showsRoute(v) ? '<span class="tile" style="width:' + size + 'px;height:' + size + 'px;font-size:' + Math.round(size * .55) + 'px;background:' + v.rc + ';color:' + v.rt + '">' + esc(v.route) + '</span>' : '';
-  const glyph = (v, s) => '<span class="glyphbox" style="width:' + Math.round(s * 1.35) + 'px;height:' + Math.round(s * 1.35) + 'px">' + (v.kind === 'done' ? G.check(s * 1.15) : isNext(v) ? G.next(s * 1.1) : homeLed(v) ? G.home(s) : v.kind === 'walk' ? G.walk(s, '#FBF8FF') : G.bus(s, '#FBF8FF')) + '</span>';
+  const glyph = (v, s) => '<span class="glyphbox" style="width:' + Math.round(s * 1.35) + 'px;height:' + Math.round(s * 1.35) + 'px">' + (v.kind === 'done' ? G.check(s * 1.15) : isNext(v) ? G.bus(s, '#FEB700') : homeLed(v) ? G.home(s) : v.kind === 'walk' ? G.walk(s, '#FBF8FF') : G.bus(s, '#FBF8FF')) + '</span>';
   const pill = (v, kind, small) => {
     const fs = small ? 11 : 12;
     if (kind === 'alert') return '<span class="pill" style="font-size:' + (fs + 1) + 'px;color:var(--honey);box-shadow:inset 0 0 0 1.5px var(--honey);padding:4px 9px">Alert</span>';
