@@ -1,0 +1,319 @@
+<meta charset="utf-8">
+<title>BeeLine Island States</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Nunito:wght@600;700;800&family=JetBrains+Mono:wght@500&display=swap">
+<style>
+:root{
+  --paper:#FBF8FF; --ink:#171A2C; --ink-soft:#4A4C60; --rule:#E4E0EE; --tone:#F2EEF9;
+  --honey:#FEB700; --isl:#000; --isl-edge:transparent; --p70:#B7B5C0; --pw:#FBF8FF; --bad:#FF7B72; --good:#2A9D5C;
+  --ui: -apple-system, BlinkMacSystemFont, "SF Pro Text", "Segoe UI", Roboto, system-ui, sans-serif;
+  --round: ui-rounded, "SF Pro Rounded", Nunito, var(--ui);
+  --mono: ui-monospace, "JetBrains Mono", Consolas, monospace;
+  color-scheme: light;
+}
+@media (prefers-color-scheme: dark){ :root:not([data-theme="light"]){
+  --paper:#0E1020; --ink:#ECEAF4; --ink-soft:#A9A7B8; --rule:#262840; --tone:#161830; --isl-edge:#2C2E46; color-scheme: dark; } }
+:root[data-theme="dark"]{ --paper:#0E1020; --ink:#ECEAF4; --ink-soft:#A9A7B8; --rule:#262840; --tone:#161830; --isl-edge:#2C2E46; color-scheme: dark; }
+
+*{box-sizing:border-box}
+body{ margin:0; background:var(--paper); color:var(--ink); font-family:var(--ui); font-size:15px; line-height:1.5; padding-inline:24px; padding-block:32px 64px; }
+.wrap{ max-width:1240px; margin:0 auto; }
+header{ display:grid; gap:10px; padding-bottom:24px; border-bottom:1px solid var(--rule); }
+.eyebrow{ font-family:var(--mono); font-size:11px; letter-spacing:.12em; text-transform:uppercase; color:var(--ink-soft); }
+h1{ margin:0; font-size:clamp(28px,4vw,40px); line-height:1.1; letter-spacing:-.01em; text-wrap:balance; font-weight:700; }
+.lede{ margin:0; max-width:66ch; color:var(--ink-soft); }
+.note{ display:inline-flex; gap:8px; align-items:baseline; font-size:13px; color:var(--ink-soft); }
+.note b{ color:var(--ink); font-weight:600; }
+
+.cols{ display:grid; grid-template-columns: 160px 372px 380px 1fr 60px; gap:16px; align-items:center; }
+.head{ position:sticky; top:0; background:var(--paper); z-index:2; padding-block:14px; border-bottom:1px solid var(--rule); }
+.head span{ font-family:var(--mono); font-size:11px; letter-spacing:.1em; text-transform:uppercase; color:var(--ink-soft); }
+.row{ padding-block:22px; border-bottom:1px solid var(--rule); }
+.state h2{ margin:0; font-size:15px; font-weight:650; line-height:1.3; text-wrap:balance; }
+.state p{ margin:4px 0 0; font-size:13px; color:var(--ink-soft); line-height:1.4; }
+.state code{ font-family:var(--mono); font-size:11px; color:var(--ink-soft); }
+.cell{ display:flex; justify-content:center; }
+.cell.left{ justify-content:flex-start; }
+.mlabel{ display:none; font-family:var(--mono); font-size:10px; letter-spacing:.1em; text-transform:uppercase; color:var(--ink-soft); margin-bottom:6px; }
+
+/* ---- the Island, at point size ---- */
+.isl{ background:var(--isl); color:var(--pw); box-shadow:0 0 0 1px var(--isl-edge); font-family:var(--ui); }
+.num{ font-family:var(--round); font-variant-numeric:tabular-nums; font-weight:700; }
+.exp{ width:371px; border-radius:44px; padding:12px 18px 16px; display:grid; grid-template-columns:40px 1fr auto; grid-template-areas:"lead cam trail" "lead center trail" "foot foot foot"; column-gap:10px; row-gap:6px; }
+.exp .lead{ grid-area:lead; display:flex; flex-direction:column; gap:6px; align-items:flex-start; padding-top:2px; }
+.exp .camrow{ grid-area:cam; height:28px; display:flex; justify-content:center; align-items:center; }
+.exp .camrow i{ width:92px; height:26px; border-radius:13px; background:#111; box-shadow:inset 0 0 0 1px #1c1c1c; }
+.exp .center{ grid-area:center; min-width:0; }
+.exp .glyphbox{ width:29px; height:29px; display:flex; align-items:center; justify-content:center; }
+.exp .title{ font-size:18px; font-weight:600; white-space:nowrap; overflow:hidden; text-overflow:ellipsis; }
+.exp .sub{ font-size:15px; color:var(--p70); white-space:nowrap; overflow:hidden; text-overflow:ellipsis; margin-top:2px; }
+.exp .trail{ grid-area:trail; text-align:right; align-self:start; white-space:nowrap; display:flex; flex-direction:column; align-items:flex-end; gap:4px; }
+.exp .trail .big{ font-size:30px; line-height:1.05; }
+.exp .trail .unit{ font-size:15px; color:var(--p70); font-family:var(--ui); font-weight:500; }
+.exp .foot{ grid-area:foot; display:grid; gap:8px; margin-top:4px; padding:0 2px; }
+.exp .board{ display:flex; align-items:center; gap:8px; font-size:13px; white-space:nowrap; overflow:hidden; }
+.exp .board > span:last-child{ flex:none; }
+.bar{ height:6px; border-radius:3px; background:rgba(251,248,255,.18); overflow:hidden; }
+.bar i{ display:block; height:100%; border-radius:3px; }
+.footline{ display:flex; gap:8px; align-items:center; min-height:22px; font-size:14px; white-space:nowrap; overflow:hidden; }
+
+.lock{ width:360px; border-radius:22px; padding:14px 16px; display:grid; gap:10px; }
+.lock .row{ display:flex; align-items:center; gap:10px; padding:0; border:0; }
+.lock .txt{ min-width:0; flex:1; }
+.lock .t{ font-size:17px; font-weight:600; white-space:nowrap; overflow:hidden; text-overflow:ellipsis; }
+.lock .s{ font-size:14px; color:var(--p70); white-space:nowrap; overflow:hidden; text-overflow:ellipsis; }
+.lock .val{ display:flex; flex-direction:column; align-items:flex-end; gap:3px; }
+.lock .val .num{ font-size:24px; line-height:1.05; }
+.lock .hr{ height:1px; background:rgba(251,248,255,.22); }
+.lock .board{ display:flex; align-items:center; gap:8px; font-size:14px; color:var(--p70); white-space:nowrap; overflow:hidden; }
+.lock .board .dots{ display:flex; gap:4px; margin-left:auto; }
+.lock .board .dots i{ width:4px; height:4px; border-radius:2px; background:rgba(251,248,255,.35); }
+.lock .board .dots i.on{ background:var(--pw); }
+.tile{ display:inline-flex; align-items:center; justify-content:center; font-weight:700; border-radius:28%; line-height:1; }
+.cmp{ height:37px; border-radius:19px; display:flex; align-items:center; justify-content:space-between; padding:0 12px 0 10px; width:250px; }
+.cmp .cam{ width:96px; }
+.cmp .l,.cmp .r{ display:flex; align-items:center; gap:5px; white-space:nowrap; }
+.cmp .r{ font-size:15px; }
+.cmp .r .unit{ font-size:12px; color:var(--p70); font-family:var(--ui); font-weight:500; }
+.min{ width:37px; height:37px; border-radius:19px; display:flex; align-items:center; justify-content:center; font-size:13px; white-space:nowrap; overflow:hidden; letter-spacing:-.02em; }
+
+.pill{ display:inline-flex; align-items:center; font-weight:600; border-radius:99px; line-height:1; }
+.route{ font-size:12px; padding:3px 8px; }
+.live{ background:var(--honey); color:var(--ink); font-size:12px; font-weight:700; padding:4px 9px; }
+.out{ box-shadow:inset 0 0 0 1px var(--p70); color:var(--pw); font-size:12px; font-weight:500; padding:4px 9px; }
+.dot{ width:6px; height:6px; border-radius:3px; background:var(--honey); display:inline-block; }
+svg.g{ display:block; flex:none; }
+
+footer{ margin-top:32px; display:grid; gap:12px; max-width:72ch; font-size:14px; color:var(--ink-soft); }
+footer h3{ margin:0; font-size:14px; color:var(--ink); }
+footer ul{ margin:0; padding-left:18px; display:grid; gap:6px; }
+
+@media (max-width: 1300px){
+  .cols{ grid-template-columns:1fr; gap:14px; justify-items:start; }
+  .head{ display:none; }
+  .cell{ justify-content:flex-start; flex-direction:column; }
+  .mlabel{ display:block; }
+  .exp{ width:min(371px, calc(100vw - 48px)); }
+}
+@media (prefers-reduced-motion: reduce){ *{ transition:none!important; animation:none!important; } }
+</style>
+
+<div class="wrap">
+  <header>
+    <span class="eyebrow">BeeLine · Live Activity · native/live-activity</span>
+    <h1>The Island, every trip state</h1>
+    <p class="lede">What the Lock Screen card and the Dynamic Island show at each size during a trip, drawn from one set of pieces. Numbers tick as they will on the phone: a countdown only for a bus that is really being tracked, minutes from the distance left for walks, clock times for scheduled buses.</p>
+    <span class="note"><b>Preview, not a phone screenshot.</b> The SwiftUI layout redrawn in HTML at point size; iOS fonts and symbols are approximated.</span>
+  </header>
+
+  <div class="cols head"><span>State</span><span>Lock Screen card</span><span>Expanded · long-press</span><span style="text-align:center">Compact</span><span style="text-align:center">Minimal</span></div>
+  <div id="rows"></div>
+
+  <footer>
+    <h3>Rules the Island keeps</h3>
+    <ul>
+      <li>Honey appears only for LIVE and your stop being next. Red only for running late and an operator-filed service alert.</li>
+      <li>A scheduled bus is a clock time with “Scheduled”, never a countdown. When the live feed goes quiet the time dims and says when it was last live.</li>
+      <li>“+6m” / “+6 late” is an estimate of minutes late for the class; the expanded Island says “About 6 min late for A327”.</li>
+      <li>The Island exists during a trip and ends on arrival. A class countdown or a trip home outside a trip is not a Live Activity today.</li>
+      <li>Each fact once: a waiting bus is titled “F bus”, a ride “Get off at …”, and LIVE / Scheduled sits under the number it qualifies.</li>
+    </ul>
+  </footer>
+</div>
+
+<script>
+(function(){
+  const NOW = Date.now(), MIN = 60e3;
+  const hm = d => { const x = new Date(d); let h = x.getHours() % 12 || 12; return h + ':' + String(x.getMinutes()).padStart(2, '0'); };
+  const time = d => hm(d) + (new Date(d).getHours() < 12 ? ' AM' : ' PM');
+  const esc = s => String(s).replace(/[&<>"]/g, c => ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;' }[c]));
+  const F = { route: 'F', rc: '#2442DF', rt: '#FFFFFF' };
+
+  /* glyphs standing in for SF Symbols */
+  const G = {
+    walk: (s, c) => `<svg class="g" width="${s}" height="${s}" viewBox="0 0 24 24" fill="none" stroke="${c}" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><circle cx="13.5" cy="4" r="2" fill="${c}" stroke="none"/><path d="M10 21l2.5-6.5L15 17v4M12.5 14.5l1-5.5-3.5 1.5-1.5 3.5M13.5 9l2.5 3 3 1"/></svg>`,
+    bus: (s, c) => `<svg class="g" width="${s}" height="${s}" viewBox="0 0 24 24"><rect x="4" y="3" width="16" height="15" rx="3" fill="${c}"/><rect x="6.5" y="6" width="11" height="5" rx="1" fill="#000"/><circle cx="8" cy="14.5" r="1.3" fill="#000"/><circle cx="16" cy="14.5" r="1.3" fill="#000"/><rect x="6" y="18" width="3" height="3" rx="1" fill="${c}"/><rect x="15" y="18" width="3" height="3" rx="1" fill="${c}"/></svg>`,
+    check: (s) => `<svg class="g" width="${s}" height="${s}" viewBox="0 0 24 24"><circle cx="12" cy="12" r="11" fill="#2A9D5C"/><path d="M7 12.5l3.2 3.2L17 9" fill="none" stroke="#FBF8FF" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round"/></svg>`,
+    next: (s) => `<svg class="g" width="${s}" height="${s}" viewBox="0 0 24 24"><circle cx="12" cy="12" r="11.5" fill="#FEB700"/><path d="M11 5v14M11 6h5l2 2.5-2 2.5h-5" fill="none" stroke="#171A2C" stroke-width="2.2" stroke-linejoin="round"/></svg>`,
+    warn: (s) => `<svg class="g" width="${s}" height="${s}" viewBox="0 0 24 24"><path d="M12 2.5L23 21.5H1z" fill="#FF7B72"/><path d="M12 9v6" stroke="#000" stroke-width="2.4" stroke-linecap="round"/><circle cx="12" cy="18.2" r="1.3" fill="#000"/></svg>`,
+    cap: (s, c) => `<svg class="g" width="${s}" height="${s}" viewBox="0 0 24 24"><path d="M1.5 9L12 4l10.5 5L12 14z" fill="${c}"/><path d="M6 11.5v4.5c2 2 10 2 12 0v-4.5L12 14.5z" fill="${c}"/></svg>`,
+    home: (s) => `<svg class="g" width="${s}" height="${s}" viewBox="0 0 24 24" fill="none" stroke="#FBF8FF" stroke-width="2.2" stroke-linejoin="round"><path d="M3 11.5L12 4l9 7.5V20a1 1 0 0 1-1 1h-5v-6H9v6H4a1 1 0 0 1-1-1z"/></svg>`,
+    checkPlain: (s, c) => `<svg class="g" width="${s}" height="${s}" viewBox="0 0 24 24" fill="none" stroke="${c}" stroke-width="1.6"><circle cx="12" cy="12" r="10"/><path d="M7.5 12.5l3 3L16.5 9" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>`,
+    route: (s, c) => `<svg class="g" width="${s}" height="${s}" viewBox="0 0 24 24" fill="none" stroke="${c}" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M4 20v-5a4 4 0 0 1 4-4h9M14 7l4 4-4 4"/></svg>`,
+    pin: (s, c) => `<svg class="g" width="${s}" height="${s}" viewBox="0 0 24 24" fill="none" stroke="${c}" stroke-width="2.2"><path d="M12 21s6-6.2 6-11a6 6 0 1 0-12 0c0 4.8 6 11 6 11z"/><circle cx="12" cy="10" r="2.2"/></svg>`,
+    clock: (s, c, back) => `<svg class="g" width="${s}" height="${s}" viewBox="0 0 24 24" fill="none" stroke="${c}" stroke-width="2.4" stroke-linecap="round"><circle cx="12" cy="12" r="9"/><path d="M12 7v5l3 2"/>${back ? '<path d="M3 5v4h4" />' : ''}</svg>`,
+  };
+
+  /* the states: views as trip.js lockView / tripBackground.viewFor produce them */
+  const S = [
+    { h: 'Walking to the stop', p: 'The walk leads; the bus is the board under it.',
+      v: Object.assign({ kind: 'walk', title: 'Walk to Alumni Hall', marker: 'live', until: NOW + 107e3, mins: 3, distM: 320, progress: .38, arriveAt: NOW + 21 * MIN, destName: 'Wells Library', cls: { code: 'A327', at: NOW + 40 * MIN } }, F) },
+    { h: 'At the stop · LIVE', p: 'A tracked bus: a real countdown.',
+      v: Object.assign({ kind: 'bus', title: 'F bus in', sub: 'At Alumni Hall', marker: 'live', until: NOW + 107e3, arriveAt: NOW + 24 * MIN, destName: 'Wells Library', rideMin: 6, walkAfter: 4 }, F) },
+    { h: 'At the stop · Scheduled', p: 'The timetable’s time, dimmed, never a countdown.',
+      v: Object.assign({ kind: 'bus', title: 'F bus about', sub: 'At Alumni Hall', marker: 'sched', approx: true, until: NOW + 9 * MIN, arriveAt: NOW + 41 * MIN, destName: 'Wells Library', rideMin: 6, walkAfter: 4 }, F) },
+    { h: 'Feed went quiet', p: 'Locked, page asleep: the last live time and when it was live.',
+      v: Object.assign({ kind: 'bus', title: 'F bus at', sub: 'At Alumni Hall', marker: 'was', liveAt: NOW - 3 * MIN, until: NOW + 4 * MIN, arriveAt: NOW + 20 * MIN, destName: 'Wells Library' }, F) },
+    { h: 'Service alert', p: 'Only an alert the operator filed for this route.',
+      v: Object.assign({ kind: 'bus', title: 'F bus at', sub: 'At Alumni Hall', marker: 'live', until: NOW + 5 * MIN + 12e3, alert: 'F Route on a detour', arriveAt: NOW + 32 * MIN, destName: 'Wells Library' }, F) },
+    { h: 'Riding', p: 'Stops to go, and the ride as its stops.',
+      v: Object.assign({ kind: 'ride', title: '3 stops to go', sub: 'Get off at Wells Library', stops: 3, rideStops: 6, walkAfter: 4, arriveAt: NOW + 14 * MIN }, F) },
+    { h: 'Your stop is next', p: 'The one urgent moment.',
+      v: Object.assign({ kind: 'ride', title: 'Your stop is next', sub: 'Get off at Wells Library', stops: 1, next: true, rideStops: 6, walkAfter: 4 }, F) },
+    { h: 'Final walk', p: 'Off the bus: minutes and distance left.',
+      v: { kind: 'walk', title: 'Walk to Wells Library', until: NOW + 4 * MIN, approx: true, mins: 4, distM: 320, progress: .55, destName: 'Wells Library' } },
+    { h: 'Late for class', p: 'The estimate lands after the start: red, “about” in words.',
+      v: { kind: 'walk', title: 'Walk to Hodge Hall', until: NOW + 9 * MIN, approx: true, mins: 9, distM: 700, progress: .2, cls: { code: 'A327', at: NOW + 3 * MIN }, late: 6, destName: 'Hodge Hall' } },
+    { h: 'Going home', p: 'The destination is your saved Home.',
+      v: Object.assign({ kind: 'bus', title: 'F bus at', sub: 'At Alumni Hall', marker: 'live', until: NOW + 3 * MIN, home: true, arriveAt: NOW + 24 * MIN, destName: 'Home', rideMin: 6, walkAfter: 4 }, F) },
+    { h: 'Arrived', p: 'Held 45 s, then the activity ends.',
+      v: { kind: 'done', title: 'You’re here', sub: 'Wells Library', destName: 'Wells Library' } },
+  ];
+
+
+  /* ---- the Swift pieces, ported (LiveActivityWidget.swift) ---- */
+  const countsDown = v => v.marker === 'live' && !v.approx;
+  const isNext = v => v.kind === 'ride' && !!v.next;
+  const hasAlert = v => !!v.alert && v.kind !== 'done';
+  const toStop = v => v.kind === 'walk' && !!v.marker;
+  const finalWalk = v => v.kind === 'walk' && !v.marker;
+  const homeLed = v => !!v.home && (toStop(v) || v.kind === 'bus') && v.arriveAt != null;
+  const lateNow = v => v.late != null && (v.kind === 'walk' || v.kind === 'ride') && !isNext(v) ? v.late : null;
+  const busName = v => v.route ? v.route + ' bus' : 'Bus';
+  const showsRoute = v => !!v.route && v.kind !== 'done' && !finalWalk(v);
+  const dist = m => m * 3.28084 < 1000 ? Math.round(m * 3.28084 / 10) * 10 + ' ft' : (m / 1609.34).toFixed(1) + ' mi';
+  const cd = at => { const s = Math.max(0, Math.round((at - Date.now()) / 1000)); const h = Math.floor(s / 3600), m = Math.floor(s % 3600 / 60), ss = String(s % 60).padStart(2, '0'); return h ? h + ':' + String(m).padStart(2, '0') + ':' + ss : m + ':' + ss; };
+  const tick = (at, color) => '<span class="num tick" data-at="' + at + '" style="color:' + (color || 'inherit') + '">' + cd(at) + '</span>';
+  function glance(v, compact) {
+    if (v.kind === 'done') return { t: 'here' };
+    if (isNext(v)) return { t: 'next' };
+    if (lateNow(v) != null) return { t: 'late', l: v.late };
+    if (v.kind === 'ride') return v.stops >= 1 ? { t: 'stops', n: v.stops } : { t: 'nothing' };
+    if (compact && hasAlert(v) && (v.kind === 'bus' || toStop(v))) return { t: 'alert' };
+    if (homeLed(v)) return { t: 'clock', at: v.arriveAt, dim: false };
+    if (finalWalk(v) && v.mins != null) return { t: 'minutes', m: v.mins };
+    if (v.until) return countsDown(v) ? { t: 'countdown', at: v.until } : { t: 'clock', at: v.until, dim: v.marker !== 'sched' };
+    if (v.kind === 'walk' && v.mins != null) return { t: 'minutes', m: v.mins };
+    return { t: 'nothing' };
+  }
+  function glanceText(v, size, compact) {
+    const g = glance(v, compact), u = Math.round(size * 0.72);
+    const num = (a, unit, color) => '<span class="num" style="font-size:' + size + 'px;color:' + color + '">' + a + '<span style="font-size:' + u + 'px;font-weight:500"> ' + unit + '</span></span>';
+    switch (g.t) {
+      case 'countdown': return '<span class="num" style="font-size:' + size + 'px">' + tick(g.at) + '</span>';
+      case 'clock': return '<span class="num" style="font-size:' + size + 'px;color:' + (g.dim ? 'var(--p70)' : 'var(--pw)') + '">' + hm(g.at) + '</span>';
+      case 'minutes': return num(g.m, 'min', 'var(--pw)');
+      case 'late': return num('+' + g.l, 'late', 'var(--bad)');
+      case 'stops': return num(g.n, g.n === 1 ? 'stop' : 'stops', 'var(--pw)');
+      case 'next': return '<span class="num" style="font-size:' + size + 'px;color:var(--honey)">Next</span>';
+      case 'alert': return '<span class="num" style="font-size:' + size + 'px;color:var(--honey)">Alert</span>';
+      case 'here': return '<span class="num" style="font-size:' + size + 'px">Here</span>';
+      default: return '';
+    }
+  }
+  const tile = (v, size) => showsRoute(v) ? '<span class="tile" style="width:' + size + 'px;height:' + size + 'px;font-size:' + Math.round(size * .55) + 'px;background:' + v.rc + ';color:' + v.rt + '">' + esc(v.route) + '</span>' : '';
+  const glyph = (v, s) => '<span class="glyphbox" style="width:' + Math.round(s * 1.35) + 'px;height:' + Math.round(s * 1.35) + 'px">' + (v.kind === 'done' ? G.check(s * 1.15) : isNext(v) ? G.next(s * 1.1) : homeLed(v) ? G.home(s) : v.kind === 'walk' ? G.walk(s, '#FBF8FF') : G.bus(s, '#FBF8FF')) + '</span>';
+  const pill = (v, kind, small) => {
+    const fs = small ? 11 : 12;
+    if (kind === 'alert') return '<span class="pill" style="font-size:' + (fs + 1) + 'px;color:var(--honey);box-shadow:inset 0 0 0 1.5px var(--honey);padding:4px 9px">Alert</span>';
+    if (kind === 'next') return '<span class="pill live" style="font-size:' + (fs + 1) + 'px;font-weight:600">Next stop</span>';
+    if (v.marker === 'live') return '<span class="pill live" style="font-size:' + fs + 'px"><i style="width:5px;height:5px;border-radius:3px;background:var(--ink);display:inline-block;margin-right:4px"></i>LIVE</span>';
+    if (v.marker === 'sched') return '<span class="pill out" style="font-size:' + fs + 'px">Scheduled</span>';
+    if (v.marker === 'was') return '<span class="pill out" style="font-size:' + fs + 'px">Live at ' + time(v.liveAt) + '</span>';
+    return '';
+  };
+  function mainLine(v) {
+    if (v.kind === 'done') return { t: 'You’re here', s: v.sub || v.destName };
+    if (isNext(v)) return { t: 'Your stop is next', s: v.sub };
+    if (homeLed(v)) return { t: 'Home about ' + time(v.arriveAt), s: v.until ? 'Board ' + (v.route || 'the bus') + ' at ' + time(v.until) : '' };
+    if (hasAlert(v) && v.kind === 'bus') return { t: v.alert, s: v.sub };
+    if (v.kind === 'bus' && v.until) return { t: countsDown(v) ? busName(v) + ' in ' + tick(v.until) : busName(v) + (v.approx ? ' about ' : ' at ') + time(v.until), s: v.sub };
+    if (toStop(v)) return { t: v.title, s: (hasAlert(v) || lateNow(v) != null) && v.until ? busName(v) + ' at ' + time(v.until) : v.mins != null ? 'Bus stop in about ' + v.mins + ' min' : '' };
+    if (finalWalk(v)) { const p = []; if (v.mins != null) p.push(v.mins + ' min left'); if (v.distM != null) p.push(dist(v.distM)); return { t: v.title, s: p.join(' · ') || v.sub || '' }; }
+    return { t: v.title, s: v.sub || '' };
+  }
+  function boards(v) {
+    const out = [];
+    const cls = v.cls ? { i: 'cap', l: v.cls.code + (v.cls.at > Date.now() ? ' at ' : ' started at ') + time(v.cls.at) } : null;
+    if (v.kind === 'done') return [{ i: 'check', l: 'Trip complete' }];
+    if (hasAlert(v) && (v.kind === 'bus' || toStop(v))) out.push({ i: 'warn', l: v.alert, tint: 'var(--pw)', pill: 'alert' });
+    if (lateNow(v) != null && v.cls) out.push({ i: 'clock', l: 'About ' + v.late + ' min late for ' + v.cls.code, tint: 'var(--bad)' });
+    if (isNext(v)) { out.push({ i: 'walk', l: v.walkAfter ? 'Walk ' + v.walkAfter + ' min after exit' : v.sub, pill: 'next' }); return out; }
+    if (v.kind === 'ride') {
+      if (v.rideStops && v.stops != null) out.push({ i: 'bus', l: v.stops === 1 ? '1 stop to go' : v.stops + ' stops to go', g: 'dots' });
+      const p = []; if (v.walkAfter) p.push('Walk ' + v.walkAfter + ' min after exit'); if (v.arriveAt) p.push('Arrive about ' + time(v.arriveAt));
+      if (p.length) out.push({ i: 'walk', l: p.join(' · ') });
+    } else if (homeLed(v)) {
+      const p = []; if (v.rideMin) p.push('Ride ' + v.rideMin + ' min'); if (v.walkAfter) p.push('Walk ' + v.walkAfter + ' min');
+      if (p.length) out.push({ i: 'route', l: p.join(' · '), pill: 'marker' });
+    } else if (toStop(v) && v.until) {
+      out.push({ i: 'bus', l: busName(v) + ' at ' + time(v.until) + (v.distM != null ? ' · ' + dist(v.distM) + ' left' : ''), tint: 'var(--pw)', pill: 'marker' });
+      if (v.arriveAt) out.push({ i: 'pin', l: (v.destName || 'Arrive') + ' about ' + time(v.arriveAt) });
+    } else if (finalWalk(v)) {
+      if (v.progress != null) out.push({ i: 'walk', l: v.until ? 'Arrive about ' + time(v.until) : v.title, g: 'bar' });
+      else if (v.until) out.push({ i: 'pin', l: 'Arrive about ' + time(v.until) });
+    } else if (v.kind === 'bus') {
+      if (v.arriveAt) out.push({ i: 'pin', l: (v.destName || 'Arrive') + ' about ' + time(v.arriveAt) });
+      const p = []; if (v.rideMin) p.push('Ride ' + v.rideMin + ' min'); if (v.walkAfter) p.push('Walk ' + v.walkAfter + ' min');
+      if (p.length) out.push({ i: 'route', l: p.join(' · ') });
+    }
+    if (cls && lateNow(v) == null) out.push(cls);
+    return out;
+  }
+  const BI = { cap: (c) => G.cap(13, c), check: (c) => G.checkPlain(13, c), warn: () => G.warn(13), clock: (c) => G.clock(13, c), walk: (c) => G.walk(13, c), bus: (c) => G.bus(13, c), route: (c) => G.route(13, c), pin: (c) => G.pin(13, c) };
+  const hexOf = t => t === 'var(--bad)' ? '#FF7B72' : t === 'var(--pw)' ? '#FBF8FF' : '#B7B5C0';
+  function boardHtml(v, b, showPill) {
+    let g = '';
+    if (b.g === 'dots' && v.rideStops) { const n = v.rideStops + 1, passed = v.rideStops - v.stops; g = '<div style="display:flex;align-items:center;height:12px;margin-bottom:8px">' + Array.from({ length: n }, (_, i) => (i > 0 ? '<i style="flex:1;height:2px;background:' + (i <= passed ? v.rc : 'rgba(183,181,192,.6)') + '"></i>' : '') + '<i style="width:10px;height:10px;border-radius:5px;box-sizing:border-box;border:1.5px solid ' + (i <= passed ? v.rc : '#B7B5C0') + ';background:' + (i <= passed ? v.rc : 'transparent') + '"></i>').join('') + '</div>'; }
+    if (b.g === 'bar' && v.progress != null) g = '<div class="bar" style="margin-bottom:8px"><i style="width:' + Math.round(v.progress * 100) + '%;background:#FEB700"></i></div>';
+    const tint = b.tint || 'var(--p70)';
+    return g + '<div class="board"><span style="width:18px;display:flex;justify-content:center">' + BI[b.i](hexOf(tint)) + '</span><span style="color:' + tint + ';font-weight:' + (b.tint ? 600 : 400) + ';overflow:hidden;text-overflow:ellipsis">' + esc(b.l) + '</span>' + (showPill && b.pill ? '<span style="margin-left:auto">' + pill(v, b.pill, true) + '</span>' : '') + '</div>';
+  }
+  function lockCard(v, page) {
+    const m = mainLine(v), bs = boards(v), b = bs.length ? bs[page % bs.length] : null;
+    return '<div class="isl lock">'
+      + '<div class="row">' + glyph(v, 22) + tile(v, 28) + '<div class="txt"><div class="t" style="color:' + (isNext(v) ? 'var(--pw)' : 'var(--pw)') + '">' + m.t + '</div>' + (m.s ? '<div class="s">' + esc(m.s) + '</div>' : '') + '</div>'
+      + '<div class="val">' + (v.kind !== 'done' ? glanceText(v, 24, false) : '') + (v.kind === 'bus' && !homeLed(v) && !hasAlert(v) ? pill(v, 'marker', true) : '') + '</div></div>'
+      + (b ? '<div class="hr"></div>' + boardHtml(v, b, true).replace('</div>' + '', (bs.length > 1 ? '<span class="dots">' + bs.map((_, i) => '<i class="' + (i === page % bs.length ? 'on' : '') + '"></i>').join('') + '</span></div>' : '</div>')) : '')
+      + '</div>';
+  }
+  function expanded(v) {
+    const m = mainLine(v), bs = boards(v), b = bs[0];
+    const trail = hasAlert(v) && (v.kind === 'bus' || toStop(v)) ? pill(v, 'alert') : (v.kind === 'bus' && !homeLed(v) ? pill(v, 'marker') : '');
+    return '<div class="isl exp">'
+      + '<div class="lead">' + glyph(v, 22) + tile(v, 30) + '</div>'
+      + '<div class="camrow"><i></i></div>'
+      + '<div class="trail">' + trail + '</div>'
+      + '<div class="center"><div class="title">' + m.t + '</div>' + (m.s ? '<div class="sub">' + esc(m.s) + '</div>' : '') + '</div>'
+      + (b ? '<div class="foot">' + (b.g ? '' : '<div class="hr" style="height:1px;background:rgba(251,248,255,.22)"></div>') + boardHtml(v, b, true) + '</div>' : '')
+      + '</div>';
+  }
+  const compactLeading = v => glyph(v, 15) + tile(v, 22);
+  const compactTrailing = v => glanceText(v, 16, true);
+  function minimal(v) {
+    const g = glance(v, false);
+    switch (g.t) {
+      case 'countdown': return tick(g.at, v.marker === 'live' ? 'var(--honey)' : 'var(--pw)');
+      case 'clock': return '<span class="num" style="color:' + (g.dim ? 'var(--p70)' : 'var(--pw)') + '">' + hm(g.at) + '</span>';
+      case 'minutes': return '<span class="num" style="font-size:15px">' + g.m + '<span style="font-size:10px">m</span></span>';
+      case 'late': return '<span class="num" style="color:var(--bad);font-size:14px">+' + g.l + '<span style="font-size:10px">m</span></span>';
+      case 'stops': return '<span class="num" style="font-size:16px">' + g.n + '</span>';
+      case 'next': return '<span class="num" style="color:var(--honey);font-size:12px">Next</span>';
+      case 'here': return G.checkPlain(17, '#FBF8FF');
+      default: return glyph(v, 13);
+    }
+  }
+
+  document.getElementById('rows').innerHTML = S.map(s => `
+    <div class="cols row">
+      <div class="state"><h2>${esc(s.h)}</h2><p>${esc(s.p)}</p></div>
+      <div class="cell left"><span class="mlabel">Lock Screen</span>${lockCard(s.v, 0)}</div>
+      <div class="cell left"><span class="mlabel">Expanded</span>${expanded(s.v)}</div>
+      <div class="cell"><span class="mlabel">Compact</span><div class="isl cmp"><span class="l">${compactLeading(s.v)}</span><span class="cam"></span><span class="r">${compactTrailing(s.v)}</span></div></div>
+      <div class="cell"><span class="mlabel">Minimal</span><div class="isl min">${minimal(s.v)}</div></div>
+    </div>`).join('');
+
+  const run = () => document.querySelectorAll('.tick').forEach(el => { el.textContent = cd(+el.dataset.at); });
+  setInterval(run, 1000);
+})();
+</script>
