@@ -1,33 +1,454 @@
 <!doctype html>
+<html>
+<head>
 <meta charset="utf-8">
-<meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
-<title>BeeLine Live Activity Demo</title>
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>BeeLine Island States — Apple hierarchy redesign</title>
 <style>
-:root{--bg:#F7F3EA;--ink:#17140F;--muted:#736E64;--line:#DED8CC;--paper:#F8F6F1;--dim:#AAA69E;--honey:#E0A13B;--red:#FF776F;--green:#61C58B;--blue:#315BD6;--ui:-apple-system,BlinkMacSystemFont,"SF Pro Text","Segoe UI",sans-serif;--round:ui-rounded,"SF Pro Rounded",var(--ui);--mono:ui-monospace,"SF Mono",Menlo,monospace}
-*{box-sizing:border-box}body{margin:0;background:var(--bg);color:var(--ink);font-family:var(--ui);padding:30px 22px 72px}.wrap{max-width:1180px;margin:auto}header{display:grid;gap:8px;padding-bottom:22px;border-bottom:1px solid var(--line)}.eyebrow{font:700 10px/1 var(--mono);letter-spacing:.12em;text-transform:uppercase;color:var(--muted)}h1{font-size:34px;line-height:1.04;letter-spacing:-.035em;margin:0;font-weight:760}.lede{max-width:760px;margin:0;color:var(--muted);font-size:14px;line-height:1.5}.controls{display:flex;gap:8px;overflow:auto;padding:18px 0 22px;scrollbar-width:none}.controls::-webkit-scrollbar{display:none}.stateBtn{flex:none;border:1px solid var(--line);background:transparent;color:var(--muted);font:650 12px var(--ui);padding:8px 12px;border-radius:999px;cursor:pointer}.stateBtn.on{background:var(--ink);border-color:var(--ink);color:#fff}.sectionLabel{font:700 10px var(--mono);text-transform:uppercase;letter-spacing:.1em;color:var(--muted);margin-bottom:8px}.heroGrid{display:grid;grid-template-columns:360px 371px 1fr;gap:24px;align-items:start}.preview{display:grid;gap:8px}.caption{font-size:12px;color:var(--muted)}
-.surface{background:#000;color:var(--paper);font-variant-numeric:tabular-nums;position:relative;overflow:hidden}.lock{width:360px;height:108px;border-radius:24px;padding:14px 14px 14px 16px}.lockBody{height:100%;display:grid;grid-template-columns:minmax(0,1fr) 1px 116px;gap:12px;align-items:stretch}.rule{width:1px;background:rgba(248,246,241,.17);border-radius:1px}.primary{min-width:0;display:grid;grid-template-rows:auto 1fr auto;gap:8px}.primaryTop{display:flex;align-items:center;gap:8px;min-width:0}.glyphBox{width:26px;height:26px;display:grid;place-items:center;flex:none}.glyphBox svg{width:22px;height:22px}.routeTile{min-width:23px;height:23px;border-radius:7px;background:var(--blue);color:white;display:grid;place-items:center;padding:0 5px;font:800 12px var(--ui);flex:none}.titleWrap{min-width:0}.title{font:740 15px/1.05 var(--round);letter-spacing:-.018em;white-space:nowrap;overflow:hidden}.subtitle{margin-top:3px;font-size:10.5px;color:var(--dim);white-space:nowrap;overflow:hidden}.metricRow{display:flex;align-items:end;gap:9px;min-width:0}.metric{font:760 25px/.92 var(--round);letter-spacing:-.045em;white-space:nowrap}.metric small{font-size:10px;color:var(--dim);font-weight:700;letter-spacing:0;margin-left:2px}.metric.live{color:var(--honey)}.metric.bad{color:var(--red)}.metric.next{color:var(--honey)}.metric.good{color:var(--green)}.progress{height:4px;background:rgba(248,246,241,.16);border-radius:99px;overflow:hidden;flex:1;margin-bottom:3px}.progress i{display:block;height:100%;background:var(--paper);border-radius:99px}.progress.next i{background:var(--honey)}.progress.bad i{background:var(--red)}.statusLine{display:flex;align-items:center;gap:6px;min-height:14px}.statusPill{display:inline-flex;align-items:center;gap:4px;border:1px solid rgba(248,246,241,.4);border-radius:999px;padding:2px 6px;font-size:8px;font-weight:800;letter-spacing:.04em}.statusPill.live{background:var(--honey);border-color:var(--honey);color:#17140F}.statusPill .dot{width:4px;height:4px;border-radius:50%;background:currentColor}
-.billboard{border:0;background:none;color:inherit;padding:0;margin:0;text-align:left;font:inherit;width:100%;cursor:pointer;display:grid;grid-template-columns:1fr 5px;gap:7px;align-items:center;touch-action:manipulation;-webkit-tap-highlight-color:transparent}.billboard:focus-visible{outline:2px solid var(--honey);outline-offset:3px;border-radius:10px}.boardPage{min-width:0;align-self:center}.boardKicker{display:flex;align-items:center;gap:5px;font-size:8px;font-weight:800;letter-spacing:.08em;text-transform:uppercase;color:var(--dim);white-space:nowrap}.boardKicker svg{width:10px;height:10px;flex:none}.boardValue{font:760 18px/1 var(--round);letter-spacing:-.03em;margin-top:5px;white-space:nowrap;overflow:hidden}.boardValue.live{color:var(--honey)}.boardValue.bad{color:var(--red)}.boardValue.good{color:var(--green)}.boardDetail{font-size:9px;line-height:1.15;color:var(--dim);margin-top:4px;max-width:98px;min-height:20px}.marks{display:flex;flex-direction:column;align-items:center;justify-content:center;gap:3px}.mark{width:3px;height:5px;border-radius:99px;background:rgba(248,246,241,.26)}.mark.on{height:13px;background:var(--paper)}.flip{animation:flip .2s cubic-bezier(.22,.75,.26,1)}@keyframes flip{from{transform:translateY(12px);opacity:.16}to{transform:none;opacity:1}}
-.expanded{width:371px;height:148px;border-radius:44px;padding:11px 17px 15px;display:grid;grid-template-rows:30px 1fr;gap:8px}.expTop{display:grid;grid-template-columns:1fr 96px 1fr;align-items:center;gap:8px}.expLead{display:flex;align-items:center;gap:5px}.expLead .glyphBox{width:21px;height:21px}.expLead .glyphBox svg{width:17px;height:17px}.expLead .routeTile{height:20px;min-width:20px;font-size:10px;border-radius:6px}.camera{width:96px;height:26px;border-radius:14px;background:#111;box-shadow:inset 0 0 0 1px #1C1C1C}.expGlance{text-align:right;font:760 15px var(--round);letter-spacing:-.025em;white-space:nowrap}.expGlance.live,.expGlance.next{color:var(--honey)}.expGlance.bad{color:var(--red)}.expGlance.good{color:var(--green)}.expBody{display:grid;grid-template-columns:minmax(0,1fr) 1px 120px;gap:12px;min-height:0}.expPrimary{min-width:0;display:grid;grid-template-rows:auto auto 1fr;align-content:start;gap:4px}.expPrimary .title{font-size:16px}.expPrimary .subtitle{font-size:11px}.expPrimary .metricRow{align-self:end}.expPrimary .metric{font-size:24px}
-.smallSurfaces{display:grid;gap:14px;align-content:start}.compact{width:250px;height:37px;border-radius:19px;padding:0 10px;display:grid;grid-template-columns:1fr 96px 1fr;align-items:center}.compactLead{display:flex;align-items:center;gap:5px}.compactLead .glyphBox{width:17px;height:17px}.compactLead .glyphBox svg{width:14px;height:14px}.compactLead .routeTile{height:18px;min-width:18px;border-radius:5px;font-size:9px}.compactMetric{justify-self:end;font:760 13px var(--round);white-space:nowrap}.compactMetric.live,.compactMetric.next{color:var(--honey)}.compactMetric.bad{color:var(--red)}.compactMetric.good{color:var(--green)}.minimal{width:37px;height:37px;border-radius:19px;display:grid;place-items:center;font:800 10px var(--round);letter-spacing:-.03em}.minimal.live,.minimal.next{color:var(--honey)}.minimal.bad{color:var(--red)}.minimal.good{color:var(--green)}.minimal svg{width:15px;height:15px}
-.widgetsTitle{font:700 10px var(--mono);text-transform:uppercase;letter-spacing:.1em;color:var(--muted);margin:28px 0 10px}.widgetGrid{display:grid;grid-template-columns:158px 338px 338px;gap:18px;align-items:start}.widget{background:#000;color:var(--paper);border-radius:22px;overflow:hidden}.wsmall{width:158px;height:158px;padding:14px}.wmedium{width:338px;height:158px;padding:15px 16px}.wlarge{width:338px;height:354px;padding:16px}.wTop{display:flex;align-items:center;gap:6px}.wTop .glyphBox{width:22px;height:22px}.wTop .glyphBox svg{width:18px;height:18px}.wTop .routeTile{height:21px;min-width:21px;font-size:10px}.wHero{font:780 31px/.95 var(--round);letter-spacing:-.05em;margin-top:20px}.wHero.live,.wHero.next{color:var(--honey)}.wHero.bad{color:var(--red)}.wHero.good{color:var(--green)}.wTitle{font:720 13px/1.18 var(--round);margin-top:8px}.wSub{font-size:10px;color:var(--dim);margin-top:3px;line-height:1.25}.mediumBody{height:100%;display:grid;grid-template-columns:minmax(0,1.15fr) 1px minmax(0,.85fr);gap:15px}.mediumPrimary{display:flex;flex-direction:column;min-width:0}.mediumPrimary .wHero{margin-top:auto;font-size:29px}.mediumSecondary{display:flex;align-items:center}.largeTop{display:flex;align-items:center;justify-content:space-between}.largeHero{display:grid;grid-template-columns:1fr auto;gap:10px;align-items:end;padding:20px 0 16px;border-bottom:1px solid rgba(248,246,241,.16)}.largeHero .wHero{margin:0;font-size:36px}.largeTitle{font:740 15px var(--round);margin-bottom:2px}.largeSub{font-size:10px;color:var(--dim)}.facts{display:grid;gap:0;margin-top:4px}.fact{display:grid;grid-template-columns:24px 1fr auto;gap:9px;align-items:center;padding:12px 0;border-bottom:1px solid rgba(248,246,241,.1)}.fact:last-child{border-bottom:0}.factIcon{color:var(--dim);display:grid;place-items:center}.factIcon svg{width:15px;height:15px}.factLabel{font-size:10px;color:var(--dim)}.factName{font:680 12px var(--round);margin-top:2px}.factValue{font:760 13px var(--round);white-space:nowrap}
-@media(max-width:1080px){.heroGrid{grid-template-columns:1fr 1fr}.smallSurfaces{grid-column:1/-1}.widgetGrid{grid-template-columns:158px 338px}.wlarge{grid-column:1/-1}}@media(max-width:760px){body{padding:20px 14px 60px}.wrap{max-width:390px}h1{font-size:29px}.heroGrid{grid-template-columns:1fr;gap:22px}.preview,.smallSurfaces{width:100%}.lock,.expanded{width:100%;max-width:371px}.lock{max-width:360px}.smallSurfaces{grid-column:auto}.widgetGrid{grid-template-columns:1fr;gap:14px}.wsmall,.wmedium,.wlarge{grid-column:auto;width:100%;max-width:338px}.wsmall{width:158px}.controls{margin-right:-14px;padding-right:14px}.caption{font-size:11px}}@media(prefers-reduced-motion:reduce){.flip{animation:none}}
+:root{
+  --paper:#FBF8FF; --ink:#171A2C; --soft:#686879; --rule:#E4E0EA; --tone:#F2EEF7;
+  --island:#000; --white:#FBF8FF; --muted:#B7B5C0; --honey:#FEB700; --bad:#FF7B72;
+  --ui:-apple-system,BlinkMacSystemFont,"SF Pro Text","Helvetica Neue",Arial,sans-serif;
+  --round:ui-rounded,"SF Pro Rounded",var(--ui);
+  --mono:ui-monospace,"SF Mono",SFMono-Regular,Menlo,monospace;
+  color-scheme:light;
+}
+*{box-sizing:border-box}
+body{margin:0;background:var(--paper);color:var(--ink);font-family:var(--ui);font-size:15px;line-height:1.4;padding:28px 24px 70px}
+.wrap{max-width:1270px;margin:0 auto}
+header{display:grid;gap:8px;padding-bottom:22px;border-bottom:1px solid var(--rule)}
+.eyebrow{font:700 10px/1 var(--mono);letter-spacing:.13em;text-transform:uppercase;color:var(--soft)}
+h1{margin:0;font-size:clamp(28px,4vw,40px);line-height:1.07;letter-spacing:-.035em}
+.lede{margin:0;max-width:83ch;color:var(--soft)}
+.note{font-size:12px;color:var(--soft)}.note b{color:var(--ink)}
+.cols{display:grid;grid-template-columns:170px 372px 385px 1fr 66px;gap:16px;align-items:center}
+.head{position:sticky;top:0;z-index:10;background:rgba(251,248,255,.97);backdrop-filter:blur(12px);padding:12px 0;border-bottom:1px solid var(--rule)}
+.head span{font:700 10px/1 var(--mono);letter-spacing:.11em;text-transform:uppercase;color:var(--soft)}
+.state-row{padding:22px 0;border-bottom:1px solid var(--rule)}
+.state h2{margin:0;font-size:15px;line-height:1.2;font-weight:700;letter-spacing:-.015em}
+.state p{margin:5px 0 0;font-size:12.5px;line-height:1.35;color:var(--soft)}
+.cell{display:flex;justify-content:center;align-items:center}.cell.left{justify-content:flex-start}
+.mlabel{display:none;font:700 10px/1 var(--mono);letter-spacing:.1em;text-transform:uppercase;color:var(--soft);margin-bottom:7px}
+
+/* Apple-led principles: black Island, tight concentric margins, one dominant fact, no decorative color. */
+.isl{background:var(--island);color:var(--white);font-family:var(--ui);box-shadow:0 0 0 1px rgba(23,26,44,.28)}
+.num{font-family:var(--round);font-variant-numeric:tabular-nums;font-feature-settings:"tnum" 1;font-weight:760;letter-spacing:-.045em}
+svg.g{display:block;flex:none}.glyphbox{display:inline-flex;align-items:center;justify-content:center;flex:none}
+.route-pill{height:24px;min-width:30px;padding:0 8px;border-radius:9px;display:inline-flex;align-items:center;justify-content:center;font-size:12px;font-weight:800;line-height:1;flex:none}
+.route-pill.small{height:20px;min-width:23px;padding:0 6px;border-radius:7px;font-size:10px}
+.status{display:inline-flex;align-items:center;gap:4px;min-height:20px;padding:0 8px;border-radius:10px;font-size:9.5px;line-height:1;font-weight:760;white-space:nowrap}
+.status.live{background:var(--honey);color:var(--ink)}
+.status.out{box-shadow:inset 0 0 0 1px rgba(251,248,255,.48);color:var(--white)}
+.status.bad{box-shadow:inset 0 0 0 1px var(--bad);color:var(--bad)}
+.dot-live{width:4px;height:4px;border-radius:50%;background:currentColor}
+
+/* LOCK SCREEN: stable primary zone + vertically paged billboard rail. No horizontal divider. */
+.lock{width:360px;height:112px;border-radius:24px;padding:12px 11px 12px 14px;display:grid;grid-template-columns:minmax(0,1fr) 1px 108px;column-gap:9px;overflow:hidden}
+.lock.done{height:92px;grid-template-columns:1fr auto;align-items:center;padding-block:11px}
+.lock-main{min-width:0;display:grid;grid-template-rows:minmax(0,1fr) 24px;align-content:center;gap:7px}
+.lock-top{display:grid;grid-template-columns:auto minmax(0,1fr);gap:8px;align-items:center;min-width:0}
+.lock-symbols{display:flex;flex-direction:column;align-items:center;justify-content:center;gap:3px;min-width:0}
+.lock-symbols .route-pill,.exp-symbols .route-pill{height:21px;min-width:27px;padding:0 7px;border-radius:8px;font-size:11px}
+.lock-copy{min-width:0;align-self:center}
+.lock-copy.bus-copy{display:grid;gap:5px;align-content:center}
+.lock-title{font-size:17px;line-height:1.06;font-weight:700;letter-spacing:-.026em;white-space:nowrap}
+.lock-title.sm{font-size:15.6px}.lock-title.xs{font-size:14px}
+.lock-sub{margin-top:3px;font-size:12.3px;line-height:1.08;color:var(--muted);white-space:nowrap}
+.lock-sub.sm{font-size:11.4px}.lock-sub.xs{font-size:10.5px}
+.lock-bottom{min-width:0;display:flex;align-items:center;gap:8px;height:24px}
+.lock-bottom>.progress{flex:1;min-width:0}
+.lock-inline-meta,.exp-inline-meta{display:flex;align-items:center;gap:8px;min-width:0;white-space:nowrap}
+.lock-inline-meta .num{font-size:17px}
+.exp-inline-meta .num{font-size:18px}
+.lock-inline-meta .status,.exp-inline-meta .status{transform:none;min-height:21px;padding-inline:8px}
+.lock-primary-metric{display:flex;flex-direction:row;align-items:center;justify-content:flex-end;gap:6px;min-width:max-content;margin-left:auto}.lock-primary-metric:empty{display:none}.lock-primary-metric .status{transform:scale(.9);transform-origin:right center}
+.lock-rule{width:1px;height:70px;background:rgba(251,248,255,.18);align-self:center}
+.lock-done-right{display:flex;align-items:center;justify-content:flex-end;color:#2A9D5C;font-size:11.5px;font-weight:650;padding-right:4px;white-space:nowrap}
+.done .lock-title,.done .exp-title{color:#2A9D5C}
+
+/* Walking states reserve more width for turn-by-turn guidance. The rail grows left, not the card itself. */
+.lock.walking-state{grid-template-columns:minmax(0,1fr) 1px 126px}
+.lock.walking-state .lock-title{font-size:15.7px}
+.lock.walking-state .lock-sub{font-size:11.6px}
+
+/* Primary progress: low-chroma unless truly urgent/live. */
+.progress{height:7px;display:flex;align-items:center;gap:6px}
+.bar{height:5px;flex:1;border-radius:99px;background:rgba(251,248,255,.17);overflow:hidden}
+.bar>i{display:block;height:100%;border-radius:99px;background:rgba(251,248,255,.9)}
+.bar>i.bad{background:var(--bad)}
+.segment{width:100%;display:grid;grid-template-columns:repeat(4,1fr);gap:5px}.segment i{height:5px;border-radius:99px;background:rgba(251,248,255,.16)}.segment i.on{background:var(--honey)}
+.stops{width:100%;display:flex;align-items:center;height:10px}.stops .line{height:2px;flex:1;background:rgba(183,181,192,.34)}.stops .line.done{background:rgba(251,248,255,.78)}
+.stop-node{width:8px;height:8px;border-radius:50%;border:1.3px solid rgba(251,248,255,.45);background:#000;flex:none}.stop-node.done{background:var(--white);border-color:var(--white)}.stop-node.current{border-color:var(--white);box-shadow:0 0 0 1px rgba(251,248,255,.4)}.stop-node.next{background:var(--honey);border-color:var(--honey)}
+
+/* BILLBOARD: a dedicated right rail, top/down pages, fixed size. */
+.rail{height:78px;position:relative;overflow:hidden;outline:none;touch-action:manipulation;user-select:none;cursor:pointer;padding-right:8px;align-self:center;display:flex;align-items:center}
+.rail[data-count="1"]{padding-right:0;cursor:default;touch-action:auto}.rail[data-count="1"] .rail-dots{display:none}
+.rail-viewport{height:78px;overflow:hidden;width:100%}
+.rail-track{will-change:transform;transition:transform 260ms cubic-bezier(.22,.72,.2,1)}
+.rail.dragging .rail-track{transition:none}
+.rail-page{height:78px;display:flex;flex-direction:column;justify-content:center;align-items:flex-start;gap:3px;min-width:0;padding-left:1px;overflow:hidden}
+.rail-kicker{display:flex;align-items:center;gap:5px;color:var(--muted);font-size:9px;font-weight:700;letter-spacing:.08em;text-transform:uppercase;white-space:nowrap;max-width:84px;overflow:hidden}
+.rail-kicker span{display:block;min-width:0;overflow:hidden;text-overflow:clip}
+.rail-kicker.live{color:var(--honey)}.rail-kicker.bad{color:var(--bad)}
+.rail-value{font-family:var(--round);font-variant-numeric:tabular-nums;font-weight:760;letter-spacing:-.045em;font-size:21px;line-height:1;white-space:nowrap}
+.rail-value.live{color:var(--honey)}.rail-value.bad{color:var(--bad)}.rail-value.dim{color:var(--muted)}
+.rail-label{font-size:10px;line-height:1.1;color:var(--muted);white-space:normal;max-width:84px}
+.rail-next{margin-top:2px;display:flex;align-items:center;gap:4px;font-size:9.5px;line-height:1;color:var(--muted);white-space:nowrap}
+.rail-next b{color:var(--white);font-weight:700}
+.rail-page.bus-stack{justify-content:center;gap:0;padding:0 1px;overflow:hidden}
+.bus-stack-head{height:12px;display:flex;align-items:center;gap:4px;color:var(--honey);font-size:8.4px;font-weight:760;letter-spacing:.07em;text-transform:uppercase;white-space:nowrap;margin-bottom:3px}
+.bus-stack-top{display:grid;gap:1px}
+.bus-stack-main{font-family:var(--round);font-variant-numeric:tabular-nums;font-weight:760;letter-spacing:-.045em;font-size:18px;line-height:.95;color:var(--honey);white-space:nowrap}.bus-stack-main.dim{color:var(--muted)}.bus-stack-main.bad{color:var(--bad)}
+.bus-stack-sub{font-size:9px;line-height:1;color:var(--white);white-space:nowrap}
+.bus-stack-sep{display:none}
+.bus-stack-bottom{width:100%;display:flex;align-items:center;justify-content:space-between;gap:5px;white-space:nowrap;margin-top:6px;padding-top:4px;border-top:1px solid rgba(251,248,255,.14)}
+.bus-stack-tag{font-size:8.2px;line-height:1;color:var(--muted);font-weight:760;letter-spacing:.08em;text-transform:uppercase}
+.bus-stack-bottom .bus-stack-main{font-size:12px;line-height:1;letter-spacing:-.02em}
+.exp .rail-page.bus-stack{padding:0 1px}
+.exp .bus-stack-head{height:10px;font-size:7.8px;margin-bottom:2px}
+.exp .bus-stack-head svg{width:9px;height:9px}
+.exp .bus-stack-main{font-size:16px}
+.exp .bus-stack-sub{font-size:8.4px}
+.exp .bus-stack-bottom{margin-top:4px;padding-top:3px}
+.exp .bus-stack-tag{font-size:7.7px}
+.exp .bus-stack-bottom .bus-stack-main{font-size:11px}
+.breakdown-page{justify-content:center;align-items:stretch;gap:0;padding:0 2px;overflow:hidden}
+.breakdown-route{display:grid;grid-template-rows:1fr 1fr;row-gap:7px;width:100%;height:100%;padding:3px 0;align-items:center}
+.breakdown-line{display:grid;grid-template-columns:15px minmax(0,1fr);column-gap:7px;align-items:start;min-width:0}
+.breakdown-iconbox{width:15px;height:16px;border-radius:0;background:transparent;display:flex;align-items:flex-start;justify-content:center;padding-top:1px}
+.breakdown-legcopy{display:flex;flex-direction:column;justify-content:flex-start;min-width:0}
+.breakdown-legcopy .time{font-family:var(--round);font-variant-numeric:tabular-nums;font-weight:780;letter-spacing:-.045em;font-size:16px;line-height:1;color:var(--white);white-space:nowrap}
+.breakdown-legcopy.walk .time{color:var(--honey)}
+.breakdown-legcopy .label{margin-top:2px;font-size:8.2px;line-height:1;color:var(--muted);white-space:nowrap;overflow:hidden;text-overflow:clip}
+.exp .breakdown-route{row-gap:5px;padding:2px 0}
+.exp .breakdown-line{grid-template-columns:14px minmax(0,1fr);column-gap:6px}
+.exp .breakdown-iconbox{width:14px;height:14px;padding-top:1px}
+.exp .breakdown-legcopy .time{font-size:13px}
+.exp .breakdown-legcopy .label{font-size:7.3px;margin-top:1px}
+.afterexit-page{justify-content:center;align-items:stretch;gap:0;padding:0 2px;overflow:hidden}
+.afterexit-card{display:grid;grid-template-columns:minmax(0,1fr) 18px;column-gap:6px;align-items:center;width:100%;height:100%}
+.afterexit-copy{min-width:0;display:flex;flex-direction:column;align-items:flex-start;justify-content:center}
+.afterexit-icon{height:16px;display:flex;align-items:center;justify-content:flex-start;color:var(--white);margin-bottom:4px}
+.afterexit-time{display:flex;align-items:center;gap:5px;font-family:var(--round);font-variant-numeric:tabular-nums;font-weight:780;letter-spacing:-.045em;font-size:20px;line-height:1;color:var(--honey);white-space:nowrap}
+.afterexit-dest{margin-top:4px;font-size:11px;line-height:1.05;color:var(--muted);max-width:92px;white-space:normal}
+.afterexit-dir{color:var(--white);opacity:.94;display:flex;align-items:center;justify-content:center}
+.exp .afterexit-icon{height:14px;margin-bottom:3px}
+.exp .afterexit-time{font-size:17px}
+.exp .afterexit-dest{font-size:9.3px;margin-top:3px;max-width:88px}
+.exp .afterexit-dir svg{width:13px;height:13px}
+
+/* Walking direction billboard: intentionally wider and visually dominant. */
+.direction-page{justify-content:center;align-items:stretch;gap:0;padding:2px 1px 1px;overflow:hidden}
+.direction-kicker{color:var(--muted);font-size:7.8px;line-height:1;font-weight:760;letter-spacing:.14em;text-transform:uppercase;white-space:nowrap;margin:0 0 6px 1px}
+.direction-main{display:grid;grid-template-columns:26px minmax(0,1fr);gap:7px;align-items:center;width:100%;min-width:0}
+.direction-arrow{display:flex;align-items:center;justify-content:center;color:var(--white);align-self:center}
+.direction-copy{min-width:0;display:flex;flex-direction:column;justify-content:center}
+.direction-action{font-size:15px;line-height:1;font-weight:780;letter-spacing:-.025em;color:var(--white);white-space:nowrap;overflow:hidden}
+.direction-street{margin-top:3px;font-size:9.5px;line-height:1;color:var(--muted);white-space:nowrap;overflow:hidden;text-overflow:clip}
+.direction-distance{margin:7px 0 0 33px;display:flex;align-items:center;gap:4px;white-space:nowrap;min-height:12px}
+.direction-distance .dist{font-family:var(--round);font-variant-numeric:tabular-nums;font-size:11.5px;line-height:1;color:var(--honey);font-weight:780;letter-spacing:-.025em}
+.exp .direction-page{padding-top:1px}
+.exp .direction-kicker{font-size:7px;margin-bottom:4px}
+.exp .direction-main{grid-template-columns:22px minmax(0,1fr);gap:5px}
+.exp .direction-action{font-size:12.7px}
+.exp .direction-street{font-size:8.2px;margin-top:2px}
+.exp .direction-distance{margin:4px 0 0 27px;gap:3px;min-height:9px}
+.exp .direction-distance .dist{font-size:9.4px}
+.rail-label.strong{color:var(--white);font-weight:600}
+.rail-dots{position:absolute;right:0;top:50%;transform:translateY(-50%);display:flex;flex-direction:column;gap:3px}
+.rail-dot{appearance:none;border:0;padding:0;width:3px;height:5px;border-radius:2px;background:rgba(251,248,255,.25);cursor:pointer}.rail-dot.on{height:13px;background:var(--white)}
+
+/* EXPANDED: compact, camera-hugging, predictable extension of compact. */
+.exp{width:371px;height:124px;border-radius:44px;padding:8px 15px 10px;display:grid;grid-template-rows:27px minmax(0,1fr);overflow:hidden}
+.exp.done{height:108px}
+.exp-cam{height:27px;display:flex;justify-content:center;align-items:center}.exp-cam i{width:94px;height:26px;border-radius:13px;background:#111;box-shadow:inset 0 0 0 1px #1A1A1A}
+.exp-body{display:grid;grid-template-columns:minmax(0,1fr) 1px 108px;gap:9px;align-items:center;min-height:0}
+.exp-main{min-width:0;display:grid;grid-template-rows:minmax(0,1fr) 22px;gap:6px;align-content:center}.exp-top{display:grid;grid-template-columns:auto minmax(0,1fr);gap:8px;align-items:center;min-width:0}
+.exp-symbols{display:flex;flex-direction:column;align-items:center;justify-content:center;gap:3px}.exp-copy{min-width:0;align-self:center}.exp-copy.bus-copy{display:grid;gap:5px;align-content:center}.exp-title{font-size:17.5px;line-height:1.05;font-weight:700;letter-spacing:-.027em;white-space:nowrap}.exp-title.sm{font-size:15.9px}.exp-title.xs{font-size:14.3px}
+.exp-sub{margin-top:3px;font-size:11.7px;line-height:1.08;color:var(--muted);white-space:nowrap}
+.exp-bottom{min-width:0;display:flex;align-items:center;gap:8px;height:22px}
+.exp-bottom>.progress{flex:1;min-width:0}
+.exp-primary-metric{display:flex;flex-direction:row;align-items:center;justify-content:flex-end;gap:6px;min-width:max-content;margin-left:auto}.exp-primary-metric:empty{display:none}.exp-primary-metric .status{transform:scale(.89);transform-origin:right center}
+.exp-rule{width:1px;height:62px;background:rgba(251,248,255,.18)}
+.exp.walking-state .exp-body{grid-template-columns:minmax(0,1fr) 1px 126px}
+.exp.ride-state .exp-body{grid-template-columns:minmax(0,1fr) 1px 116px}
+.exp.walking-state .exp-title{font-size:15.8px}
+.exp.walking-state .exp-sub{font-size:11px}
+.exp .rail,.exp .rail-viewport,.exp .rail-page{height:64px}.exp .rail-value{font-size:19px}.exp .rail-label{font-size:9.8px}
+
+/* Compact / minimal: only the fact someone needs now. */
+.cmp{width:250px;height:37px;border-radius:19px;display:flex;align-items:center;justify-content:space-between;padding:0 10px}
+.cmp-left{display:flex;align-items:center;gap:5px;min-width:0}.cmp-cam{width:96px;flex:none}.cmp-right{font-family:var(--round);font-variant-numeric:tabular-nums;font-size:14px;font-weight:760;letter-spacing:-.035em;white-space:nowrap;display:flex;align-items:center;justify-content:flex-end;gap:4px}.cmp-right.live{color:var(--honey)}.cmp-right.bad{color:var(--bad)}.cmp-right.dim{color:var(--muted)}.cmp-right.good{color:#2A9D5C}.compact-live-dot{width:4px;height:4px;border-radius:50%;background:var(--honey);flex:none}
+.min{width:37px;height:37px;border-radius:19px;display:grid;grid-template-rows:11px 11px;place-items:center;align-content:center;gap:1px;padding:3px 2px 2px;font-family:var(--round);font-variant-numeric:tabular-nums;font-weight:780;white-space:nowrap;overflow:hidden}
+.min-icon{height:11px;display:flex;align-items:center;justify-content:center;line-height:0}.min-value{font-size:9px;line-height:1;letter-spacing:-.035em;color:var(--white)}.min-value.live{color:var(--honey)}.min-value.bad{color:var(--bad)}.min-value.dim{color:var(--muted)}.min-value.good{color:#2A9D5C}.min-value.word{font-size:7.2px;letter-spacing:-.015em;text-transform:uppercase}.suffix{font-size:6.5px;letter-spacing:-.02em;margin-left:.5px}
+
+footer{margin-top:30px;display:grid;gap:9px;max-width:82ch;color:var(--soft);font-size:13px}footer h3{margin:0;color:var(--ink);font-size:14px}footer ul{margin:0;padding-left:18px;display:grid;gap:5px}
+@media(max-width:1300px){.cols{grid-template-columns:1fr;gap:13px;justify-items:start}.head{display:none}.cell{justify-content:flex-start;flex-direction:column;align-items:flex-start}.mlabel{display:block}.state-row{padding:24px 0}.lock{width:min(360px,calc(100vw - 48px))}.exp{width:min(371px,calc(100vw - 48px))}}
+@media(prefers-reduced-motion:reduce){*{transition:none!important}}
 </style>
-<div class="wrap"><header><div class="eyebrow">BeeLine · Live Activity design lab</div><h1>Every trip state, rebuilt around the glance.</h1><p class="lede">The primary fact never moves. The billboard is secondary and tap controlled. Each size has its own hierarchy instead of forcing the same layout into every surface.</p></header><div class="controls" id="controls"></div><div class="heroGrid"><div class="preview"><div class="sectionLabel">Lock Screen</div><div id="lock"></div><div class="caption">Tap the right rail to cycle secondary facts.</div></div><div class="preview"><div class="sectionLabel">Expanded Dynamic Island</div><div id="expanded"></div><div class="caption">Same selected billboard page, more breathing room.</div></div><div class="smallSurfaces"><div><div class="sectionLabel">Compact</div><div id="compact"></div></div><div><div class="sectionLabel">Minimal</div><div id="minimal"></div></div></div></div><div class="widgetsTitle">Live Trip widgets</div><div class="widgetGrid"><div id="wsmall"></div><div id="wmedium"></div><div id="wlarge"></div></div></div>
+</head>
+<body>
+<div class="wrap">
+<header>
+  <span class="eyebrow">BeeLine · Live Activity · Apple hierarchy pass</span>
+  <h1>The Island, every trip state</h1>
+  <p class="lede">The primary fact stays fixed. Secondary information lives in a narrow billboard rail separated by a vertical rule and flips top-to-bottom. The layouts stay compact, keep the camera tightly framed, and collapse toward one meaningful number or word.</p>
+  <span class="note"><b>Interactive design prototype.</b> Tap the right billboard rail to cycle through its pages, matching the interaction intended for the real ActivityKit build.</span>
+</header>
+<div class="cols head"><span>State</span><span>Lock Screen card</span><span>Expanded · long-press</span><span style="text-align:center">Compact</span><span style="text-align:center">Minimal</span></div>
+<div id="rows"></div>
+<footer>
+  <h3>Design rules applied</h3>
+  <ul>
+    <li>The most important action or metric is always leading and stable; secondary facts never compete with it.</li>
+    <li>The billboard is a fixed right rail with a vertical separator. Pages move vertically and can never create blank space.</li>
+    <li>Normal progress uses Paper. Honey is reserved for LIVE and the immediate “NEXT” moment. Red means a problem the student must notice.</li>
+    <li>Expanded is a predictable enlargement of compact and wraps tightly around the TrueDepth camera.</li>
+    <li>Natural campus names are shortened before typography shrinks. No text uses ellipsis.</li>
+    <li>Alignment is optical first: icon mass, baselines, and perceived centers are tuned even when the raw boxes are not mathematically identical.</li>
+  </ul>
+</footer>
+</div>
 <script>
+(()=>{
 const NOW=Date.now(),MIN=60000;
-const S=[
-{name:'Walking to stop',kind:'walk',title:'Walk to Alumni Hall',sub:'0.2 mi left',route:'F',progress:.38,metric:{type:'minutes',n:3},pages:[{k:'Next turn',icon:'turn',value:'RIGHT',detail:'in 200 ft · E 10th St'},{k:'F bus',icon:'bus',value:'1:47',detail:'LIVE · Alumni Hall',tone:'live'},{k:'Arrival',icon:'pin',value:'8:42',detail:'about · Wells'},{k:'Next class',icon:'class',value:'19m',detail:'A327'}]},
-{name:'At stop · LIVE',kind:'bus',title:'Alumni Hall',sub:'F route',route:'F',metric:{type:'countdown',at:NOW+107000},status:'live',pages:[{k:'Arrival',icon:'pin',value:'8:45',detail:'about · Wells'},{k:'Trip',icon:'walk',value:'6 + 4',detail:'ride min · walk min'},{k:'Next class',icon:'class',value:'22m',detail:'A327'}]},
-{name:'At stop · Scheduled',kind:'bus',title:'Alumni Hall',sub:'F route',route:'F',metric:{type:'clock',at:NOW+9*MIN,about:true},status:'scheduled',pages:[{k:'Arrival',icon:'pin',value:'9:02',detail:'about · Wells'},{k:'Trip',icon:'walk',value:'6 + 4',detail:'ride min · walk min'}]},
-{name:'Feed quiet',kind:'bus',title:'Alumni Hall',sub:'F route',route:'F',metric:{type:'clock',at:NOW+4*MIN,dim:true},status:'last',pages:[{k:'Last live',icon:'clock',value:'8:21',detail:'bus location stale'},{k:'Arrival',icon:'pin',value:'8:41',detail:'about · Wells'}]},
-{name:'Service alert',kind:'bus',title:'Alumni Hall',sub:'F Route on a detour',route:'F',metric:{type:'countdown',at:NOW+312000},status:'live',alert:true,pages:[{k:'Alert',icon:'alert',value:'DETOUR',detail:'F Route on a detour',tone:'bad'},{k:'Arrival',icon:'pin',value:'8:53',detail:'about · Wells'}]},
-{name:'Riding',kind:'ride',title:'Get off at Wells',sub:'3 stops remaining',route:'F',stops:3,totalStops:6,progress:.5,metric:{type:'stops',n:3},pages:[{k:'After exit',icon:'walk',value:'4 min',detail:'walk to Wells'},{k:'Arrival',icon:'pin',value:'8:42',detail:'about · Wells'}]},
-{name:'Stop is next',kind:'next',title:'Your stop is next',sub:'Get off at Wells',route:'F',progress:.86,metric:{type:'next'},pages:[{k:'After exit',icon:'walk',value:'4 min',detail:'walk to Wells'}]},
-{name:'Final walk',kind:'walk',title:'Walk to Wells',sub:'320 ft left',progress:.55,metric:{type:'minutes',n:4},pages:[{k:'Next turn',icon:'turn',value:'LEFT',detail:'in 90 ft · Jordan Ave'},{k:'Arrival',icon:'pin',value:'8:36',detail:'about · Wells'}]},
-{name:'Late for class',kind:'walk',title:'Walk to Hodge Hall',sub:'700 ft left',progress:.2,metric:{type:'late',n:6},pages:[{k:'Class',icon:'class',value:'+6m',detail:'about · A327',tone:'bad'},{k:'Arrival',icon:'pin',value:'8:56',detail:'about · Hodge'}]},
-{name:'Going home',kind:'bus',title:'Alumni Hall',sub:'F route',route:'F',metric:{type:'countdown',at:NOW+180000},status:'live',pages:[{k:'Home',icon:'home',value:'9:04',detail:'about · from the bus'},{k:'Trip',icon:'walk',value:'6 + 4',detail:'ride min · walk min'}]},
-{name:'Arrived',kind:'done',title:'You’re here',sub:'Wells Library',metric:{type:'done'},pages:[]}
+const esc=s=>String(s??'').replace(/[&<>\"]/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','\"':'&quot;'}[c]));
+const hm=d=>{const x=new Date(d);let h=x.getHours()%12||12;return h+':'+String(x.getMinutes()).padStart(2,'0')};
+const time=d=>hm(d)+(new Date(d).getHours()<12?' AM':' PM');
+const cd=at=>{const s=Math.max(0,Math.round((at-Date.now())/1000)),m=Math.floor(s/60),ss=String(s%60).padStart(2,'0');return m+':'+ss};
+const dist=m=>m*3.28084<1000?Math.round(m*3.28084/10)*10+' ft':(m/1609.34).toFixed(1)+' mi';
+const F={route:'F',rc:'#2442DF',rt:'#FFFFFF'};
+const PLACE_ALIASES=[
+ [/Herman B\\.? Wells Library/gi,'Wells Library'],[/Indiana Memorial Union/gi,'IMU'],[/Hodge Hall Undergraduate Center/gi,'Hodge Hall'],[/Kelley School of Business/gi,'Kelley'],[/Luddy School of Informatics, Computing, and Engineering/gi,'Luddy'],[/Student Recreational Sports Center/gi,'SRSC'],[/Alumni Hall/gi,'Alumni Center']
 ];
-const icons={walk:`<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.25" stroke-linecap="round" stroke-linejoin="round"><circle cx="13.5" cy="4" r="1.8" fill="currentColor" stroke="none"/><path d="M10 21l2.5-6.4L15 17v4M12.5 14.6l1-5.5-3.5 1.5-1.5 3.4M13.5 9l2.4 3 3.1 1"/></svg>`,bus:`<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="4" y="3" width="16" height="15" rx="3"/><path d="M4 10h16M8 14.5h.01M16 14.5h.01M7 18v3M17 18v3" stroke-linecap="round"/></svg>`,ride:`<svg viewBox="0 0 24 24"><rect x="4" y="3" width="16" height="15" rx="3" fill="currentColor"/><rect x="6.5" y="6" width="11" height="5" rx="1" fill="#000"/><circle cx="8" cy="14.5" r="1.25" fill="#000"/><circle cx="16" cy="14.5" r="1.25" fill="#000"/></svg>`,next:`<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.1" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="4" width="11" height="15" rx="2.5"/><path d="M13 12h8M18 8l4 4-4 4"/></svg>`,pin:`<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 21s6-6.1 6-11a6 6 0 1 0-12 0c0 4.9 6 11 6 11z"/><circle cx="12" cy="10" r="2"/></svg>`,turn:`<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M5 19v-5a4 4 0 0 1 4-4h9M14 6l4 4-4 4"/></svg>`,class:`<svg viewBox="0 0 24 24"><path d="M1.5 9L12 4l10.5 5L12 14z" fill="currentColor"/><path d="M6 11.5v4.5c2 2 10 2 12 0v-4.5L12 14.5z" fill="currentColor"/></svg>`,alert:`<svg viewBox="0 0 24 24"><path d="M12 2.5L23 21.5H1z" fill="currentColor"/><path d="M12 9v6" stroke="#000" stroke-width="2.3" stroke-linecap="round"/><circle cx="12" cy="18.2" r="1.2" fill="#000"/></svg>`,clock:`<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="9"/><path d="M12 7v5l3 2"/></svg>`,home:`<svg viewBox="0 0 24 24"><path d="M3 11.5L12 4l9 7.5V20a1 1 0 0 1-1 1h-5v-6H9v6H4a1 1 0 0 1-1-1z" fill="currentColor"/></svg>`,done:`<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><circle cx="12" cy="12" r="9.5"/><path d="M7.5 12.5l3 3L16.8 9" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"/></svg>`};
-let state=0,pages=S.map(()=>0),flip=false;const $=q=>document.querySelector(q);function glyphName(s){return s.kind==='walk'?'walk':s.kind==='ride'?'ride':s.kind==='next'?'next':s.kind==='done'?'done':'bus'}function fmtClock(ms){const d=new Date(ms);let h=d.getHours()%12||12;return `${h}:${String(d.getMinutes()).padStart(2,'0')}`}function fmtCount(ms){const sec=Math.max(0,Math.round((ms-Date.now())/1000)),m=Math.floor(sec/60),ss=String(sec%60).padStart(2,'0');return `${m}:${ss}`}function metric(s){const m=s.metric;if(m.type==='minutes')return{html:`${m.n}<small>min</small>`};if(m.type==='countdown')return{html:fmtCount(m.at),tone:'live'};if(m.type==='clock')return{html:`${m.about?'<small>about</small> ':''}${fmtClock(m.at)}`,tone:m.dim?'dim':''};if(m.type==='stops')return{html:`${m.n}<small>${m.n===1?'stop':'stops'}</small>`};if(m.type==='next')return{html:'NEXT',tone:'next'};if(m.type==='late')return{html:`+${m.n}<small>min</small>`,tone:'bad'};if(m.type==='done')return{html:'HERE',tone:'good'};return{html:''}}function progress(s){if(s.kind==='ride'&&s.totalStops){const done=Math.max(0,s.totalStops-s.stops);return`<div class="progress"><i style="width:${done/s.totalStops*100}%"></i></div>`}if(s.progress!=null)return`<div class="progress ${s.kind==='next'?'next':''} ${s.metric.type==='late'?'bad':''}"><i style="width:${s.progress*100}%"></i></div>`;return'<div style="flex:1"></div>'}function status(s){if(s.status==='live')return`<span class="statusPill live"><i class="dot"></i>LIVE</span>`;if(s.status==='scheduled')return`<span class="statusPill">Scheduled</span>`;if(s.status==='last')return`<span class="statusPill">Last live</span>`;if(s.alert)return`<span class="statusPill" style="color:var(--red);border-color:rgba(255,119,111,.55)">Alert</span>`;return''}function primaryTop(s){return`<div class="primaryTop"><div class="glyphBox" style="color:${s.alert?'var(--red)':s.kind==='next'?'var(--honey)':'var(--paper)'}">${icons[glyphName(s)]}</div>${s.route?`<div class="routeTile">${s.route}</div>`:''}<div class="titleWrap"><div class="title">${s.title}</div><div class="subtitle">${s.sub||''}</div></div></div>`}function board(s){if(!s.pages.length)return`<div class="boardPage"><div class="boardKicker" style="color:var(--green)"><span style="width:10px;height:10px;display:inline-flex">${icons.done}</span>Trip complete</div><div class="boardValue">Arrived</div><div class="boardDetail">Nothing else needs your attention.</div></div>`;const i=pages[state]%s.pages.length,p=s.pages[i],marks=s.pages.map((_,j)=>`<i class="mark ${j===i?'on':''}"></i>`).join('');return`<button class="billboard" onclick="advance()"><div class="boardPage ${flip?'flip':''}"><div class="boardKicker" style="${p.tone==='bad'?'color:var(--red)':p.tone==='live'?'color:var(--honey)':''}"><span style="width:10px;height:10px;display:inline-flex">${icons[p.icon]||icons.pin}</span>${p.k}</div><div class="boardValue ${p.tone||''}">${p.value}</div><div class="boardDetail">${p.detail||''}</div></div><div class="marks">${marks}</div></button>`}function lockHTML(s){const m=metric(s);return`<div class="surface lock"><div class="lockBody"><div class="primary">${primaryTop(s)}<div></div><div><div class="metricRow"><div class="metric ${m.tone||''}">${m.html}</div>${progress(s)}</div><div class="statusLine">${status(s)}</div></div></div><div class="rule"></div>${board(s)}</div></div>`}function expandedHTML(s){const m=metric(s);return`<div class="surface expanded"><div class="expTop"><div class="expLead"><div class="glyphBox" style="color:${s.alert?'var(--red)':s.kind==='next'?'var(--honey)':'var(--paper)'}">${icons[glyphName(s)]}</div>${s.route?`<div class="routeTile">${s.route}</div>`:''}</div><div class="camera"></div><div class="expGlance ${m.tone||''}">${m.html}</div></div><div class="expBody"><div class="expPrimary"><div class="title">${s.title}</div><div class="subtitle">${s.sub||''}</div><div class="metricRow">${progress(s)}<div>${status(s)}</div></div></div><div class="rule"></div>${board(s)}</div></div>`}function compactHTML(s){const m=metric(s);return`<div class="surface compact"><div class="compactLead"><div class="glyphBox" style="color:${s.alert?'var(--red)':s.kind==='next'?'var(--honey)':'var(--paper)'}">${icons[glyphName(s)]}</div>${s.route?`<div class="routeTile">${s.route}</div>`:''}</div><div></div><div class="compactMetric ${m.tone||''}">${m.html.replace(/<small>.*?<\/small>/g,'')}</div></div>`}function minimalHTML(s){const m=metric(s);let inner;if(['next','done'].includes(s.metric.type)||s.alert)inner=icons[s.alert?'alert':s.metric.type==='next'?'next':'done'];else inner=m.html.replace(/<small>.*?<\/small>/g,'');return`<div class="surface minimal ${m.tone||''}">${inner}</div>`}function smallWidget(s){const m=metric(s);return`<div class="widget wsmall"><div class="wTop"><div class="glyphBox">${icons[glyphName(s)]}</div>${s.route?`<div class="routeTile">${s.route}</div>`:''}<div style="margin-left:auto">${status(s)}</div></div><div class="wHero ${m.tone||''}">${m.html}</div><div class="wTitle">${s.title}</div><div class="wSub">${s.sub||''}</div></div>`}function mediumWidget(s){const m=metric(s);return`<div class="widget wmedium"><div class="mediumBody"><div class="mediumPrimary"><div class="wTop"><div class="glyphBox">${icons[glyphName(s)]}</div>${s.route?`<div class="routeTile">${s.route}</div>`:''}<div style="margin-left:auto">${status(s)}</div></div><div class="wHero ${m.tone||''}">${m.html}</div><div class="wTitle">${s.title}</div><div class="wSub">${s.sub||''}</div></div><div class="rule"></div><div class="mediumSecondary">${board(s)}</div></div></div>`}function largeWidget(s){const m=metric(s),facts=(s.pages.length?s.pages:[{k:'Trip',icon:'done',value:'Complete',detail:s.sub||''}]).slice(0,4).map(p=>`<div class="fact"><div class="factIcon">${icons[p.icon]||icons.pin}</div><div><div class="factLabel">${p.k}</div><div class="factName">${p.detail||''}</div></div><div class="factValue" style="${p.tone==='bad'?'color:var(--red)':p.tone==='live'?'color:var(--honey)':''}">${p.value}</div></div>`).join('');return`<div class="widget wlarge"><div class="largeTop"><div class="wTop"><div class="glyphBox">${icons[glyphName(s)]}</div>${s.route?`<div class="routeTile">${s.route}</div>`:''}</div>${status(s)}</div><div class="largeHero"><div><div class="largeTitle">${s.title}</div><div class="largeSub">${s.sub||''}</div></div><div class="wHero ${m.tone||''}">${m.html}</div></div><div class="facts">${facts}</div></div>`}function render(){const s=S[state];$('#lock').innerHTML=lockHTML(s);$('#expanded').innerHTML=expandedHTML(s);$('#compact').innerHTML=compactHTML(s);$('#minimal').innerHTML=minimalHTML(s);$('#wsmall').innerHTML=smallWidget(s);$('#wmedium').innerHTML=mediumWidget(s);$('#wlarge').innerHTML=largeWidget(s);document.querySelectorAll('.stateBtn').forEach((b,i)=>b.classList.toggle('on',i===state));flip=false;requestAnimationFrame(()=>flip=true)}function advance(){pages[state]=(pages[state]+1)%Math.max(1,S[state].pages.length);flip=true;render()}const controls=$('#controls');S.forEach((s,i)=>{const b=document.createElement('button');b.className='stateBtn';b.textContent=s.name;b.onclick=()=>{state=i;flip=false;render()};controls.appendChild(b)});render();setInterval(()=>{if(S[state].metric.type==='countdown')render()},1000);
+const short=s=>PLACE_ALIASES.reduce((o,[r,n])=>o.replace(r,n),String(s??''));
+const shortRail=s=>short(s).replace(/Wells Library/gi,'Wells').replace(/Alumni Center/gi,'Alumni').replace(/Hodge Hall/gi,'Hodge');
+const fit=(s,a=27,b=34)=>short(s).length>b?' xs':short(s).length>a?' sm':'';
+
+const G={
+ walk:(s,c='#FBF8FF')=>`<svg class="g" width="${s}" height="${s}" viewBox="0 0 24 24" fill="none" stroke="${c}" stroke-width="2.35" stroke-linecap="round" stroke-linejoin="round"><circle cx="13.5" cy="4" r="2" fill="${c}" stroke="none"/><path d="M10 21l2.5-6.5L15 17v4M12.5 14.5l1-5.5-3.5 1.5-1.5 3.5M13.5 9l2.5 3 3 1"/></svg>`,
+ bus:(s,c='#FBF8FF')=>`<svg class="g" width="${s}" height="${s}" viewBox="0 0 24 24"><rect x="4" y="3" width="16" height="15" rx="3" fill="${c}"/><rect x="6.5" y="6" width="11" height="5" rx="1" fill="#000"/><circle cx="8" cy="14.5" r="1.3" fill="#000"/><circle cx="16" cy="14.5" r="1.3" fill="#000"/><rect x="6" y="18" width="3" height="3" rx="1" fill="${c}"/><rect x="15" y="18" width="3" height="3" rx="1" fill="${c}"/></svg>`,
+ check:(s,c='#FBF8FF')=>`<svg class="g" width="${s}" height="${s}" viewBox="0 0 24 24" fill="none" stroke="${c}" stroke-width="2"><circle cx="12" cy="12" r="10"/><path d="M7.3 12.5l3 3L16.9 9" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"/></svg>`,
+ exit:(s,c='#FEB700')=>`<svg class="g" width="${s}" height="${s}" viewBox="0 0 24 24" fill="none" stroke="${c}" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round"><rect x="2.8" y="4" width="10.2" height="14.8" rx="2.5"/><rect x="4.8" y="6.2" width="6.2" height="4.1" rx=".8"/><circle cx="5.7" cy="15.4" r=".8" fill="${c}" stroke="none"/><circle cx="10.2" cy="15.4" r=".8" fill="${c}" stroke="none"/><path d="M12.3 12h8.7M17.7 8.8L21 12l-3.3 3.2"/></svg>`,
+ busClock:(s,c='#FBF8FF')=>`<svg class="g" width="${s}" height="${s}" viewBox="0 0 24 24"><rect x="3.5" y="4" width="13" height="13" rx="2.6" fill="${c}"/><rect x="5.7" y="6.1" width="8.6" height="4.3" rx=".8" fill="#000"/><circle cx="7.2" cy="13.7" r="1" fill="#000"/><circle cx="12.8" cy="13.7" r="1" fill="#000"/><circle cx="17.7" cy="16.7" r="5.1" fill="#000" stroke="${c}" stroke-width="1.6"/><path d="M17.7 13.9v2.9l1.9 1.1" fill="none" stroke="${c}" stroke-width="1.6" stroke-linecap="round"/></svg>`,
+ warn:s=>`<svg class="g" width="${s}" height="${s}" viewBox="0 0 24 24"><path d="M12 2.5L23 21.5H1z" fill="#FF7B72"/><path d="M12 9v6" stroke="#000" stroke-width="2.4" stroke-linecap="round"/><circle cx="12" cy="18.2" r="1.3" fill="#000"/></svg>`,
+ cap:(s,c='#FBF8FF')=>`<svg class="g" width="${s}" height="${s}" viewBox="0 0 24 24"><path d="M1.5 9L12 4l10.5 5L12 14z" fill="${c}"/><path d="M6 11.5v4.5c2 2 10 2 12 0v-4.5L12 14.5z" fill="${c}"/></svg>`,
+ home:(s,c='#FBF8FF')=>`<svg class="g" width="${s}" height="${s}" viewBox="0 0 24 24" fill="none" stroke="${c}" stroke-width="2.2" stroke-linejoin="round"><path d="M3 11.5L12 4l9 7.5V20a1 1 0 0 1-1 1h-5v-6H9v6H4a1 1 0 0 1-1-1z"/></svg>`,
+ pin:(s,c='#B7B5C0')=>`<svg class="g" width="${s}" height="${s}" viewBox="0 0 24 24" fill="none" stroke="${c}" stroke-width="2.2"><path d="M12 21s6-6.2 6-11a6 6 0 1 0-12 0c0 4.8 6 11 6 11z"/><circle cx="12" cy="10" r="2.2"/></svg>`,
+ clock:(s,c='#B7B5C0')=>`<svg class="g" width="${s}" height="${s}" viewBox="0 0 24 24" fill="none" stroke="${c}" stroke-width="2.2" stroke-linecap="round"><circle cx="12" cy="12" r="9"/><path d="M12 7v5l3 2"/></svg>`,
+ route:(s,c='#B7B5C0')=>`<svg class="g" width="${s}" height="${s}" viewBox="0 0 24 24" fill="none" stroke="${c}" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M4 20v-5a4 4 0 0 1 4-4h9M14 7l4 4-4 4"/></svg>`,
+ chev:(s,c='#FBF8FF')=>`<svg class="g" width="${s}" height="${s}" viewBox="0 0 24 24" fill="none" stroke="${c}" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round"><path d="M9 5l7 7-7 7"/></svg>`,
+ turnRight:(s,c='#FBF8FF')=>`<svg class="g" width="${s}" height="${s}" viewBox="0 0 24 24" fill="none" stroke="${c}" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M7 20v-8a4 4 0 0 1 4-4h8"/><path d="M15 4l4 4-4 4"/></svg>`,
+ straight:(s,c='#FBF8FF')=>`<svg class="g" width="${s}" height="${s}" viewBox="0 0 24 24" fill="none" stroke="${c}" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M12 21V4"/><path d="M7.5 8.5L12 4l4.5 4.5"/></svg>`
+};
+
+const S=[
+ {h:'Walking to the stop',p:'Your walk leads. Bus, arrival, and class timing rotate in the rail.',v:Object.assign({kind:'walk',title:'Walk to Alumni Center',marker:'live',until:NOW+107000,mins:3,distM:320,progress:.38,arriveAt:NOW+21*MIN,nextBusMin:9,destName:'Wells Library',direction:{type:'right',action:'Turn right',street:'E 10th St',in:'200 ft'},cls:{code:'A327',at:NOW+40*MIN}},F)},
+ {h:'At the stop · LIVE',p:'The live bus countdown becomes the one dominant number.',v:Object.assign({kind:'bus',title:'F bus',sub:'Alumni Center',marker:'live',until:NOW+107000,arriveAt:NOW+24*MIN,nextBusMin:9,destName:'Wells Library',rideMin:6,walkAfter:4},F)},
+ {h:'At the stop · Scheduled',p:'Clock time, never a fake countdown.',v:Object.assign({kind:'bus',title:'F bus',sub:'Alumni Center',marker:'sched',approx:true,until:NOW+9*MIN,arriveAt:NOW+41*MIN,destName:'Wells Library',rideMin:6,walkAfter:4},F)},
+ {h:'Feed went quiet',p:'The last known bus time stays visibly stale.',v:Object.assign({kind:'bus',title:'F bus',sub:'Alumni Center',marker:'was',liveAt:NOW-3*MIN,until:NOW+4*MIN,arriveAt:NOW+20*MIN,destName:'Wells Library'},F)},
+ {h:'Service alert',p:'The bus still leads; the operator alert gets its own urgent rail page.',v:Object.assign({kind:'bus',title:'F bus',sub:'Alumni Center',marker:'live',until:NOW+5*MIN+12000,alert:'F Route on a detour',arriveAt:NOW+32*MIN,destName:'Wells Library'},F)},
+ {h:'Riding',p:'Stops remaining lead. After-exit walking and ETA stay secondary.',v:Object.assign({kind:'ride',title:'3 stops to go',sub:'Get off at Wells Library',stops:3,rideStops:6,walkAfter:4,arriveAt:NOW+14*MIN,destName:'Wells Library'},F)},
+ {h:'Your stop is next',p:'The one urgent onboard moment. No P-shaped sign icon.',v:Object.assign({kind:'ride',title:'Your stop is next',sub:'Get off at Wells Library',stops:1,next:true,rideStops:6,walkAfter:4,destName:'Wells Library'},F)},
+ {h:'Final walk',p:'Final walking minutes and arrival time.',v:{kind:'walk',title:'Walk to Wells Library',until:NOW+4*MIN,approx:true,mins:4,distM:320,progress:.55,destName:'Wells Library',direction:{type:'right',action:'Turn right',street:'Library Mall',in:'350 ft'}}},
+ {h:'Late for class',p:'The consequence leads, not generic route detail.',v:{kind:'walk',title:'Walk to Hodge Hall',until:NOW+9*MIN,approx:true,mins:9,distM:700,progress:.2,cls:{code:'A327',at:NOW+3*MIN},late:6,destName:'Hodge Hall',direction:{type:'straight',action:'Continue',street:'E 10th St',in:'0.4 mi'}}},
+ {h:'Going home',p:'The bus is still what you can miss; Home ETA is a rail page.',v:Object.assign({kind:'bus',title:'F bus',sub:'Alumni Center',marker:'live',until:NOW+3*MIN,home:true,arriveAt:NOW+24*MIN,destName:'Home',rideMin:6,walkAfter:4},F)},
+ {h:'Arrived',p:'Ends quickly. No extra status decoration.',v:{kind:'done',title:'You’re here',sub:'Wells Library',destName:'Wells Library',endIn:45}}
+];
+
+const isNext=v=>v.kind==='ride'&&!!v.next;
+const hasAlert=v=>!!v.alert&&v.kind!=='done';
+const toStop=v=>v.kind==='walk'&&!!v.marker;
+const finalWalk=v=>v.kind==='walk'&&!v.marker;
+const lateNow=v=>v.late!=null&&(v.kind==='walk'||v.kind==='ride')&&!isNext(v)?v.late:null;
+const countsDown=v=>v.marker==='live'&&!v.approx;
+const showsRoute=v=>!!v.route&&v.kind!=='done'&&!finalWalk(v);
+const busName=v=>v.route?v.route+' bus':'Bus';
+const routePill=(v,small=false)=>!showsRoute(v)?'':`<span class="route-pill${small?' small':''}" style="background:${v.rc};color:${v.rt}">${esc(v.route)}</span>`;
+const status=v=>{
+ if(v.marker==='live')return `<span class="status live"><i class="dot-live"></i>LIVE</span>`;
+ if(v.marker==='sched')return `<span class="status out">Scheduled</span>`;
+ if(v.marker==='was')return `<span class="status out">Live ${Math.max(1,Math.round((Date.now()-v.liveAt)/MIN))}m ago</span>`;
+ return '';
+};
+const iconFor=(v,s=22,c='#FBF8FF')=>v.kind==='done'?G.check(s,c):isNext(v)?G.exit(s,'#FEB700'):v.kind==='walk'?G.walk(s,c):G.bus(s,c);
+const primaryRoutePill=(v,small=false)=>{
+ if(!v.route||v.kind==='done'||v.kind==='walk')return'';
+ return routePill(v,small);
+};
+function primaryMetricBlock(v,size=23,cls='lock-primary-metric'){
+ const m=metric(v);
+ if(v.kind==='ride'&&!isNext(v))return `<div class="${cls}"></div>`;
+ if(isNext(v))return `<div class="${cls}"></div>`;
+ let extra='';
+ if(v.kind==='bus')extra=status(v);
+ return `<div class="${cls}">${metricHTML(m,size)}${extra}</div>`;
+}
+function busMeta(v,expanded=false){
+ const m=metric(v);
+ const size=expanded?18:17;
+ return `<div class="${expanded?'exp-inline-meta':'lock-inline-meta'}">${metricHTML(m,size)}${status(v)}</div>`;
+}
+function primary(v){
+ if(v.kind==='done')return{title:'You’re here',sub:short(v.destName),metric:{type:'done'}};
+ if(isNext(v))return{title:'Your stop is next',sub:'Get off at '+short(v.destName),metric:{type:'next'}};
+ if(lateNow(v)!=null)return{title:short(v.title),sub:`${v.mins} min · ${dist(v.distM)}`,metric:{type:'late',n:v.late}};
+ if(v.kind==='ride')return{title:`${v.stops} stops to go`,sub:'Get off at '+short(v.destName),metric:{type:'none'}};
+ if(toStop(v))return{title:short(v.title),sub:`${dist(v.distM)} left`,metric:{type:'minutes',n:v.mins}};
+ if(finalWalk(v))return{title:short(v.title),sub:v.until?'Arrive about '+time(v.until):`${dist(v.distM)} left`,metric:{type:'minutes',n:v.mins}};
+ if(v.kind==='bus')return{title:short(v.sub)||'Bus stop',sub:'',metric:countsDown(v)?{type:'countdown',at:v.until}:{type:'clock',at:v.until,dim:v.marker==='was'}};
+ return{title:short(v.title),sub:short(v.sub),metric:{type:'none'}};
+}
+function metric(v){return primary(v).metric}
+function metricHTML(m,size=24){
+ if(!m||m.type==='none'||m.type==='done')return'';
+ if(m.type==='countdown')return `<span class="num tick" data-at="${m.at}" style="font-size:${size}px;color:var(--honey)">${cd(m.at)}</span>`;
+ if(m.type==='clock')return `<span class="num" style="font-size:${size}px;color:${m.dim?'var(--muted)':'var(--white)'}">${hm(m.at)}</span>`;
+ if(m.type==='minutes')return `<span class="num" style="font-size:${size}px">${m.n}<span style="font:650 9px/1 var(--ui);letter-spacing:0;margin-left:2px;color:var(--muted)">min</span></span>`;
+ if(m.type==='next')return `<span class="num" style="font-size:${Math.max(16,size-4)}px;color:var(--honey);letter-spacing:-.02em">NEXT</span>`;
+ if(m.type==='late')return `<span class="num" style="font-size:${size}px;color:var(--bad)">+${m.n}<span style="font:650 9px/1 var(--ui);letter-spacing:0;margin-left:2px">min</span></span>`;
+ return'';
+}
+function primaryVisual(v){
+ if(isNext(v))return `<div class="progress"><div class="segment"><i class="on"></i><i class="on"></i><i class="on"></i><i></i></div></div>`;
+ if(v.kind==='ride')return `<div class="progress">${stopProgress(v)}</div>`;
+ if(v.kind==='walk'&&v.progress!=null)return `<div class="progress"><div class="bar"><i class="${lateNow(v)!=null?'bad':''}" style="width:${Math.round(v.progress*100)}%"></i></div></div>`;
+ return'';
+}
+function stopProgress(v){
+ const total=(v.rideStops||6)+1,completed=Math.max(0,(v.rideStops||6)-(v.stops||0));
+ return `<div class="stops">${Array.from({length:total},(_,i)=>`${i?`<i class="line ${i<=completed?'done':''}"></i>`:''}<i class="stop-node ${i<completed?'done':i===completed?(isNext(v)?'next':'current'):''}"></i>`).join('')}</div>`;
+}
+
+/* Rail pages answer one secondary question each. No duplicates of the primary fact. */
+function pages(v){
+ const p=[];
+ if(v.kind==='done')return[];
+ if(v.kind==='walk'&&v.direction)p.push({variant:'direction',...v.direction});
+ if(hasAlert(v))p.push({icon:'warn',k:'Alert',value:'Detour',label:(v.route?`${v.route} route affected`:'Route affected'),tone:'bad'});
+ if(lateNow(v)!=null&&v.cls)p.push({icon:'cap',k:'Class',value:`+${v.late}m`,label:`${v.cls.code} · ${time(v.cls.at)}`,tone:'bad'});
+ if(isNext(v)){
+   if(v.walkAfter)p.push({icon:'walk',k:'After exit',value:`${v.walkAfter}m`,label:'to '+shortRail(v.destName)});
+   return p;
+ }
+ if(v.kind==='ride'){
+   if(v.walkAfter)p.push({variant:'breakdown',rideMin:0,walkAfter:v.walkAfter||0,label:'to '+shortRail(v.destName)});
+   if(v.arriveAt)p.push({icon:'pin',k:'Arrival',value:hm(v.arriveAt),label:shortRail(v.destName)});
+   return p;
+ }
+ if(toStop(v)){
+   if(v.until)p.push({variant:'busStack',icon:'bus',k:countsDown(v)?'Bus':v.marker==='sched'?'Bus':'Last live',value:countsDown(v)?cd(v.until):hm(v.until),label:'Alumni',nextValue:v.nextBusMin!=null?`${v.nextBusMin} min`:'',nextLabel:'Then',tone:countsDown(v)?'live':v.marker==='was'?'dim':'',live:countsDown(v),statusLabel:countsDown(v)?'Next':v.marker==='sched'?'Time':'Live at'});
+   if(v.arriveAt)p.push({icon:'pin',k:'Arrival',value:hm(v.arriveAt),label:shortRail(v.destName)});
+   if(v.cls)p.push({icon:'cap',k:'Next class',value:`${Math.max(0,Math.round((v.cls.at-Date.now())/MIN))}m`,label:v.cls.code});
+   return p;
+ }
+ if(finalWalk(v)){
+   if(v.until)p.push({icon:'pin',k:'Arrival',value:hm(v.until),label:shortRail(v.destName)});
+   return p;
+ }
+ if(v.kind==='bus'){
+   if(v.home&&v.arriveAt)p.push({icon:'home',k:'Home',value:hm(v.arriveAt),label:'Estimated arrival'});
+   else if(v.arriveAt)p.push({icon:'pin',k:'Arrival',value:hm(v.arriveAt),label:shortRail(v.destName)});
+   if(v.rideMin||v.walkAfter)p.push({variant:'breakdown',rideMin:v.rideMin||0,walkAfter:v.walkAfter||0,label:'to '+shortRail(v.destName)});
+   else if(v.nextBusMin!=null)p.push({icon:'bus',k:'Then',value:`${v.nextBusMin} min`,label:'next bus'});
+   return p;
+ }
+ return p;
+}
+const pageIcon=(name,c='#B7B5C0')=>({walk:G.walk(13,c),bus:G.bus(13,c),pin:G.pin(13,c),cap:G.cap(13,c),home:G.home(13,c),route:G.route(15,c),warn:G.warn(13),clock:G.clock(13,c)})[name]||'';
+function pageHTML(b){
+ const c=b.tone==='bad'?'#FF7B72':b.tone==='live'?'#FEB700':'#B7B5C0';
+ if(b.variant==='busStack'){
+   return `<div class="rail-page bus-stack"><div class="bus-stack-head">${G.bus(10,b.tone==='live'?'#FEB700':'#B7B5C0')}<span>${esc(b.k)}</span></div><div class="bus-stack-top"><div class="bus-stack-main ${b.live?'tick':''} ${b.tone||''}" ${b.live?`data-at="${findAtForPage(b)}"`:''}>${esc(b.value)}</div><div class="bus-stack-sub">${esc(shortRail(b.label||''))}</div></div>${b.nextValue?`<div class="bus-stack-sep"></div><div class="bus-stack-bottom"><div class="bus-stack-tag">${esc(b.nextLabel||'Then')}</div><div class="bus-stack-main">${esc(b.nextValue)}</div></div>`:''}</div>`;
+ }
+ if(b.variant==='direction'){
+   const arrow=b.type==='straight'?G.straight(23,'#FBF8FF'):G.turnRight(23,'#FBF8FF');
+   return `<div class="rail-page direction-page"><div class="direction-kicker">Directions</div><div class="direction-main"><div class="direction-arrow">${arrow}</div><div class="direction-copy"><div class="direction-action">${esc(b.action||'Continue')}</div><div class="direction-street">${esc(b.street||'')}</div></div></div>${b.in?`<div class="direction-distance">${G.pin(9,'#FEB700')}<span class="dist">${esc(b.in)}</span></div>`:''}</div>`;
+ }
+ if(b.variant==='breakdown'){
+   const dest=shortRail((b.label||'').replace(/^to\s+/i,''));
+   if(b.rideMin&&b.walkAfter){
+     return `<div class="rail-page breakdown-page"><div class="breakdown-route"><div class="breakdown-line"><div class="breakdown-iconbox">${G.bus(14,'#FBF8FF')}</div><div class="breakdown-legcopy"><div class="time">${b.rideMin} min</div><div class="label">Bus</div></div></div><div class="breakdown-line"><div class="breakdown-iconbox">${G.walk(14,'#FBF8FF')}</div><div class="breakdown-legcopy walk"><div class="time">${b.walkAfter} min</div><div class="label">${esc(dest)}</div></div></div></div></div>`;
+   }
+   if(b.walkAfter){
+     return `<div class="rail-page afterexit-page"><div class="afterexit-card"><div class="afterexit-copy"><div class="afterexit-icon">${G.walk(13,'#FBF8FF')}</div><div class="afterexit-time">${b.walkAfter} min</div><div class="afterexit-dest">${esc(dest)}</div></div><div class="afterexit-dir">${G.chev(15,'#FBF8FF')}</div></div></div>`;
+   }
+ }
+ return `<div class="rail-page"><div class="rail-kicker ${b.tone||''}">${pageIcon(b.icon,c)}<span>${esc(b.k)}</span></div><div class="rail-value ${b.tone||''} ${b.live?'tick':''}" ${b.live?`data-at="${findAtForPage(b)}"`:''}>${esc(b.value)}</div><div class="rail-label ${b.tone==='bad'?'strong':''}">${esc(short(b.label))}</div>${b.meta?`<div class="rail-next"><span>↳</span><b>${esc(b.meta)}</b></div>`:''}</div>`;
+}
+function findAtForPage(b){return b._at||0}
+function rail(v,surface){
+ const ps=pages(v).map(x=>{if(x.live&&v.until)x._at=v.until;return x});
+ if(!ps.length)return'';
+ const dots=ps.length>1?`<div class="rail-dots">${ps.map((_,i)=>`<button class="rail-dot ${i===0?'on':''}" type="button" data-page="${i}" aria-label="Page ${i+1}"></button>`).join('')}</div>`:'';
+ return `<div class="rail" data-count="${ps.length}" data-page="0" data-surface="${surface}" tabindex="0"><div class="rail-viewport"><div class="rail-track">${ps.map(pageHTML).join('')}</div></div>${dots}</div>`;
+}
+function lockCard(v,i){
+ const p=primary(v),done=v.kind==='done';
+ if(done)return `<div class="isl lock done"><div class="lock-top"><div class="lock-symbols"><span class="glyphbox">${G.check(34)}</span></div><div class="lock-copy"><div class="lock-title">You’re here</div><div class="lock-sub">${esc(short(v.destName))}</div></div></div><div class="lock-done-right">Trip complete</div></div>`;
+ if(v.kind==='bus') return `<div class="isl lock${v.kind==='walk'?' walking-state':''}" data-state="${i}"><div class="lock-main" style="grid-template-rows:1fr"><div class="lock-top"><div class="lock-symbols"><span class="glyphbox">${iconFor(v,23,hasAlert(v)?'#FF7B72':'#FBF8FF')}</span>${primaryRoutePill(v)}</div><div class="lock-copy bus-copy"><div class="lock-title${fit(p.title)}">${esc(short(p.title))}</div>${p.sub?`<div class="lock-sub${fit(p.sub,30,40)}">${esc(short(p.sub))}</div>`:''}${busMeta(v,false)}</div></div></div><div class="lock-rule"></div>${rail(v,'lock')}</div>`;
+ return `<div class="isl lock${v.kind==='walk'?' walking-state':''}" data-state="${i}"><div class="lock-main"><div class="lock-top"><div class="lock-symbols"><span class="glyphbox">${iconFor(v,23,hasAlert(v)?'#FF7B72':'#FBF8FF')}</span>${primaryRoutePill(v)}</div><div class="lock-copy"><div class="lock-title${fit(p.title)}">${esc(short(p.title))}</div><div class="lock-sub${fit(p.sub,30,40)}">${esc(short(p.sub))}</div></div></div><div class="lock-bottom">${primaryVisual(v)}${primaryMetricBlock(v,22,'lock-primary-metric')}</div></div><div class="lock-rule"></div>${rail(v,'lock')}</div>`;
+}
+function expanded(v,i){
+ const p=primary(v),done=v.kind==='done';
+ if(done)return `<div class="isl exp done"><div class="exp-cam"><i></i></div><div class="exp-body" style="grid-template-columns:1fr"><div style="display:flex;align-items:center;justify-content:center;gap:10px;width:100%"><span class="glyphbox">${G.check(30)}</span><div><div class="exp-title">You’re here</div><div class="exp-sub">${esc(short(v.destName))} · Trip complete</div></div></div></div></div>`;
+ if(v.kind==='bus') return `<div class="isl exp" data-state="${i}"><div class="exp-cam"><i></i></div><div class="exp-body"><div class="exp-main" style="grid-template-rows:1fr"><div class="exp-top"><div class="exp-symbols"><span class="glyphbox">${iconFor(v,22,hasAlert(v)?'#FF7B72':'#FBF8FF')}</span>${primaryRoutePill(v)}</div><div class="exp-copy bus-copy"><div class="exp-title${fit(p.title)}">${esc(short(p.title))}</div>${p.sub?`<div class="exp-sub">${esc(short(p.sub))}</div>`:''}${busMeta(v,true)}</div></div></div><div class="exp-rule"></div>${rail(v,'expanded')}</div></div>`;
+ return `<div class="isl exp${v.kind==='walk'?' walking-state':v.kind==='ride'?' ride-state':''}" data-state="${i}"><div class="exp-cam"><i></i></div><div class="exp-body"><div class="exp-main"><div class="exp-top"><div class="exp-symbols"><span class="glyphbox">${iconFor(v,22,hasAlert(v)?'#FF7B72':'#FBF8FF')}</span>${primaryRoutePill(v)}</div><div class="exp-copy"><div class="exp-title${fit(p.title)}">${esc(short(p.title))}</div><div class="exp-sub">${esc(short(p.sub))}</div></div></div><div class="exp-bottom">${primaryVisual(v)}${primaryMetricBlock(v,21,'exp-primary-metric')}</div></div><div class="exp-rule"></div>${rail(v,'expanded')}</div></div>`;
+}
+function compact(v){
+ const m=metric(v);let right='',cls='';
+ if(hasAlert(v)&&v.kind==='bus'){right='Alert';cls=' bad'}
+ else if(m.type==='countdown'){right=`<span class="compact-live-dot"></span><span class="tick" data-at="${m.at}">${cd(m.at)}</span>`;cls=' live'}
+ else if(m.type==='clock'){right=`${G.clock(9,m.dim?'#B7B5C0':'#FBF8FF')}<span>${hm(m.at)}</span>`;cls=m.dim?' dim':''}
+ else if(m.type==='minutes')right=m.n+'m';
+ else if(v.kind==='ride'&&!isNext(v))right=v.stops+' stops';
+ else if(m.type==='next'){right='NEXT';cls=' live'}
+ else if(m.type==='late'){right='+'+m.n+'m';cls=' bad'}
+ else if(m.type==='done'){right='Here';cls=' good'}
+ const compactIcon=hasAlert(v)?G.warn(13):iconFor(v,14,'#FBF8FF');
+ const left=`<span class="glyphbox">${compactIcon}</span>${routePill(v,true)}`;
+ return{left,right,cls};
+}
+function minimal(v){
+ const m=metric(v);
+ let icon='',value='',tone='',word=false;
+ if(hasAlert(v)){icon=G.warn(9);value='Alert';tone='bad';word=true}
+ else if(v.kind==='done'){icon=G.check(9);value='Here';tone='good';word=true}
+ else if(isNext(v)){icon=G.exit(9,'#FEB700');value='NEXT';tone='live';word=true}
+ else if(lateNow(v)!=null){icon=G.cap(9,'#FF7B72');value=`+${v.late}m`;tone='bad'}
+ else if(v.kind==='ride'){icon=G.bus(9,'#FBF8FF');value=String(v.stops)}
+ else if(v.kind==='walk'){icon=G.walk(9,'#FBF8FF');value=m.type==='minutes'?`${m.n}m`:m.type==='clock'?hm(m.at):'';tone=m.dim?'dim':''}
+ else if(v.kind==='bus'){
+   icon=m.type==='clock'?G.busClock(10,m.dim?'#B7B5C0':'#FBF8FF'):G.bus(9,'#FBF8FF');
+   if(m.type==='countdown'){value=`<span class="tick" data-at="${m.at}">${cd(m.at)}</span>`;tone='live'}
+   else if(m.type==='clock'){value=hm(m.at);tone=m.dim?'dim':''}
+ }
+ if(!value){value='•';word=true}
+ return{html:`<span class="min-icon">${icon}</span><span class="min-value ${tone} ${word?'word':''}">${value}</span>`,cls:''};
+}
+
+document.getElementById('rows').innerHTML=S.map((s,i)=>{const cp=compact(s.v),mn=minimal(s.v);return `<div class="cols state-row"><div class="state"><h2>${esc(s.h)}</h2><p>${esc(s.p)}</p></div><div class="cell left"><span class="mlabel">Lock Screen</span>${lockCard(s.v,i)}</div><div class="cell left"><span class="mlabel">Expanded</span>${expanded(s.v,i)}</div><div class="cell"><span class="mlabel">Compact</span><div class="isl cmp"><span class="cmp-left">${cp.left}</span><span class="cmp-cam"></span><span class="cmp-right${cp.cls}">${cp.right}</span></div></div><div class="cell"><span class="mlabel">Minimal</span><div class="isl min${mn.cls}">${mn.html}</div></div></div>`}).join('');
+
+function initRails(){
+ document.querySelectorAll('.rail').forEach(shell=>{
+   const count=+shell.dataset.count||0;
+   const track=shell.querySelector('.rail-track'),viewport=shell.querySelector('.rail-viewport'),dots=[...shell.querySelectorAll('.rail-dot')];
+   let page=0;
+   const height=()=>viewport.getBoundingClientRect().height;
+   const apply=()=>{track.style.transform=`translateY(${-page*height()}px)`;dots.forEach((d,i)=>d.classList.toggle('on',i===page));shell.dataset.page=page};
+   const go=n=>{page=(n+count)%count;apply()};
+   dots.forEach((d,i)=>d.addEventListener('click',e=>{e.stopPropagation();go(i)}));
+   if(count>1){
+     shell.addEventListener('click',()=>go(page+1));
+     shell.addEventListener('keydown',e=>{if(e.key==='Enter'||e.key===' '){e.preventDefault();go(page+1)}});
+   }
+   window.addEventListener('resize',apply);
+   apply();
+ });
+}
+function tick(){document.querySelectorAll('.tick').forEach(el=>{const at=+el.dataset.at;if(at)el.textContent=cd(at)})}
+initRails();tick();setInterval(tick,1000);
+})();
 </script>
+</body>
+</html>
