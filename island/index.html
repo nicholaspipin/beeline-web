@@ -264,13 +264,15 @@ footer ul{ margin:0; padding-left:18px; display:grid; gap:6px; }
   }
   const draw = (lay, key) => (lay && lay[key] ? render(lay[key], lay.d || {}, 0) : '');
 
-  /* the real card turns a rail page each redraw (App.js LA_BOARD_MS); here every 4 s */
-  let page = 0;
-  const drawAll = () => { document.getElementById('rows').innerHTML = S.map(s => {
-    const a = LaLayout.activity(s.v, { page, now: NOW });
+  /* The production interaction is tap-to-advance. Keep one selected board per
+     preview state so testing one row never changes the others. */
+  const pages = S.map(() => 0);
+  let flipState = -1;
+  const drawAll = () => { document.getElementById('rows').innerHTML = S.map((s, i) => {
+    const a = LaLayout.activity(s.v, { page: pages[i], now: NOW });
     const w = LaLayout.widgets(s.v, { now: NOW });
     return `
-    <div class="cols row">
+    <div class="cols row" data-state="${i}">
       <div class="state"><h2>${esc(s.h)}</h2><p>${esc(s.p)}</p></div>
       <div class="cell left"><span class="mlabel">Lock Screen</span><div class="isl lock">${draw(a, 'lock')}</div></div>
       <div class="cell left"><span class="mlabel">Expanded</span><div class="isl exp"><div class="lead">${draw(a, 'xl')}</div><div class="camrow"><i></i></div><div class="trail">${draw(a, 'xt')}</div><div class="center">${draw(a, 'xc')}</div><div class="foot">${draw(a, 'xb')}</div></div></div>
@@ -282,7 +284,7 @@ footer ul{ margin:0; padding-left:18px; display:grid; gap:6px; }
       <div class="wcell"><span class="wlabel">Live Trip · medium</span><div class="isl wmd">${draw(w, 'md')}</div></div>
       <div class="wcell"><span class="wlabel">Live Trip · large</span><div class="isl wlg">${draw(w, 'lg')}</div></div>
     </div>`;
-  }).join(''); run(); fit(); };
+  }).join(''); run(); fit(); wireBillboards(); animateFlip(); };
   /* SwiftUI's minimumScaleFactor, approximated: a one-line text that does not fit shrinks, down to its m */
   function fit() {
     document.querySelectorAll('.n-text[style*="--m:"]').forEach(el => {
@@ -292,9 +294,45 @@ footer ul{ margin:0; padding-left:18px; display:grid; gap:6px; }
     });
   }
 
+  function railNode(host) {
+    if (!host) return null;
+    const outer = host.firstElementChild;
+    const body = outer && outer.firstElementChild;
+    return body && body.lastElementChild;
+  }
+  function advance(i) {
+    pages[i] += 1;
+    flipState = i;
+    drawAll();
+  }
+  function wireRail(host, i) {
+    if (!host) return;
+    host.addEventListener('click', e => {
+      const r = host.getBoundingClientRect();
+      if (e.clientX < r.right - 140) return;
+      advance(i);
+    });
+  }
+  function wireBillboards() {
+    document.querySelectorAll('.row[data-state]').forEach(row => {
+      const i = +row.dataset.state;
+      wireRail(row.querySelector('.lock'), i);
+      wireRail(row.querySelector('.exp .foot'), i);
+    });
+  }
+  function animateFlip() {
+    if (flipState < 0 || matchMedia('(prefers-reduced-motion: reduce)').matches) { flipState = -1; return; }
+    const row = document.querySelector('.row[data-state="' + flipState + '"]');
+    if (row) [railNode(row.querySelector('.lock')), railNode(row.querySelector('.exp .foot'))].filter(Boolean).forEach(el => {
+      if (el.animate) el.animate([
+        { transform: 'translateY(14px)', opacity: .15 },
+        { transform: 'translateY(0)', opacity: 1 }
+      ], { duration: 190, easing: 'cubic-bezier(.22,.75,.26,1)' });
+    });
+    flipState = -1;
+  }
   function run() { document.querySelectorAll('.tick').forEach(el => { el.textContent = cd(+el.dataset.at, el.dataset.h !== '0'); }); }
   drawAll();
   setInterval(run, 1000);
-  setInterval(() => { page++; drawAll(); }, 4000);
 })();
 </script>
